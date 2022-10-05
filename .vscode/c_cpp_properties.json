@@ -6,12 +6,9 @@
                 "limitSymbolsToIncludedHeaders": false
             },
             "includePath": [
-                "/home/xangusx/tel_ws/devel/include/**",
                 "/opt/ros/noetic/include/**",
-                "/home/xangusx/tel_ws/src/race/include/**",
-                "/home/xangusx/tel_ws/src/ekf_odom/include/**",
-                "/home/xangusx/tel_ws/src/robot_localization/include/**",
-                "/usr/include/**"
+                "/usr/include/**",
+                "${workspaceFolder}/race/include"
             ],
             "name": "ROS",
             "intelliSenseMode": "gcc-x64",
