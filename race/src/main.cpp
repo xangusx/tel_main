@@ -15,5 +15,6 @@ int main(int argc, char **argv)
         // ScaraPut();
         // ROS_INFO("hello");
         // ros::Duration(1).sleep();
+        break;
     }
 }

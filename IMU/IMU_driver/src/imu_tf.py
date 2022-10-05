@@ -10,8 +10,8 @@ def handle_imu_pose(msg):
     t = geometry_msgs.msg.TransformStamped()
 
     t.header.stamp = rospy.Time.now()
-    t.header.frame_id = "world"
-    t.child_frame_id = "imu_link"
+    t.header.frame_id = "odom_frame"
+    t.child_frame_id = "base_link"
     t.transform.translation.x = 0.3
     t.transform.translation.y = 0.3
     t.transform.translation.z = 0

@@ -9,17 +9,21 @@ void first()
     // {
     //     rate.sleep();
     // }
+    Scara_move(0,0,1);
     MoveTo(20,0,0.5,0.02);
     MoveTo(-20,0,0.5,0.02);
     MoveTo(0,0,0.5,0.02);
     MoveTo(0,20,0.5,0.02);
-    MoveTo(0,-20,0.5,0.02);
-    MoveTo(20,0,0.5,0.02);
-    MoveTo(0,20,0.5,0.02);
-    MoveTo(-20,0,0.5,0.02);
+    // MoveTo(0,-20,0.5,0.02);
+    // MoveTo(20,0,0.5,0.02);
+    // MoveTo(0,20,0.5,0.02);
+    // MoveTo(-20,0,0.5,0.02);
     MoveTo(0,0,0.5,0.02);
+    Scara_move(0,29.0832266,0);
     // Scara_move(x,y,init)
-    Scara_move(0,2,0);
+    
+    
+    
     
 
     // rotation(-90,0.5,0.02); 

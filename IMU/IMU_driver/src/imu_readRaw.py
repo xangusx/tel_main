@@ -69,7 +69,7 @@ if __name__ == '__main__':
 
     # Get imu's frame
     # Default is imu_link
-    IMU_FRAME = rospy.get_param('~imu_frame', 'imu_link')
+    IMU_FRAME = rospy.get_param('~imu_frame', 'base_link')
 
     bus.write_byte_data(ADDR, PWR_MGMT_1, 0)
 

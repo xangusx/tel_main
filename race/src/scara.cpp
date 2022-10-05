@@ -19,7 +19,7 @@ void ScaraTake()
 bool Scara_move(float x,float y,int init)
 {
     ros::NodeHandle nh;
-    scara_pub = nh.advertise<geometry_msgs::Point>("",1);
+    scara_pub = nh.advertise<geometry_msgs::Point>("Destination",1);
     bool feedback;
     
     // 可能用其他msgs才可以傳state
