@@ -95,15 +95,16 @@ class tof_calibration:
 
         self.sensor_BL = ranger(0x1A, 16, self.ranging_mode)
         self.sensor_BR = ranger(0x1B, 13, self.ranging_mode)
-        # self.sensor_GL = ranger(0x1C, 27, self.ranging_mode)
-        # self.sensor_GR = ranger(0x1D, 10, self.ranging_mode)
+        self.sensor_GL = ranger(0x1C, 12, self.ranging_mode)
+        self.sensor_GR = ranger(0x1D, 6, self.ranging_mode)
         # self.sensor_RL = ranger(0x1E, 11, self.ranging_mode)
         # self.sensor_RR = ranger(0x1F, 22, self.ranging_mode)
 
         # self.ranger_list = [self.sensor_BL, self.sensor_BR, 
         #                     self.sensor_GL, self.sensor_GR,
         #                     self.sensor_RL, self.sensor_RR]
-        self.ranger_list = [self.sensor_BL, self.sensor_BR]
+        self.ranger_list = [self.sensor_BL, self.sensor_BR,
+                            self.sensor_GL, self.sensor_GR]
         self.rangerPub = rospy.Publisher("tof_data", Float64MultiArray, queue_size=10)
         self.rangerCalibration()
 
@@ -127,10 +128,10 @@ class tof_calibration:
                     BR_M = float(self.sensor_BR.calibration_m),
                     BR_C = float(self.sensor_BR.calibration_c),
 
-                    # GL_M = float(self.sensor_GL.calibration_m),
-                    # GL_C = float(self.sensor_GL.calibration_c),
-                    # GR_M = float(self.sensor_GR.calibration_m),
-                    # GR_C = float(self.sensor_GR.calibration_c),
+                    GL_M = float(self.sensor_GL.calibration_m),
+                    GL_C = float(self.sensor_GL.calibration_c),
+                    GR_M = float(self.sensor_GR.calibration_m),
+                    GR_C = float(self.sensor_GR.calibration_c),
 
                     # RL_M = float(self.sensor_RL.calibration_m),
                     # RL_C = float(self.sensor_RL.calibration_c),

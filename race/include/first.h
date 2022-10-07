@@ -5,6 +5,7 @@
 #include "chassis_control.h"
 #include "scara.h"
 
+bool first_state = true;
 void first();
 
 #endif

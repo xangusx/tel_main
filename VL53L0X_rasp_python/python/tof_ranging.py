@@ -90,17 +90,17 @@ class tof:
 
         self.sensor_BL = ranger("BL",0x1A, 16, self.ranging_mode)
         self.sensor_BR = ranger("BR",0x1B, 13, self.ranging_mode)
-        # self.sensor_GL = ranger("GL", 0x1C, 27, self.ranging_mode)
-        # self.sensor_GR = ranger("GR", 0x1D, 10, self.ranging_mode)
+        self.sensor_GL = ranger("GL", 0x1C, 12, self.ranging_mode)
+        self.sensor_GR = ranger("GR", 0x1D, 6, self.ranging_mode)
         # self.sensor_RL = ranger("RL",0x1E, 11, self.ranging_mode)
         # self.sensor_RR = ranger("RR",0x1F, 22, self.ranging_mode)
 
         # self.ranger_list = [self.sensor_BR]
-        self.ranger_list = [self.sensor_BL, self.sensor_BR]
+        # self.ranger_list = [self.sensor_BL, self.sensor_BR]
 
-        # self.ranger_list = [self.sensor_BL, self.sensor_BR, 
-        #                     self.sensor_GL, self.sensor_GR,
-        #                     self.sensor_RL, self.sensor_RR]
+        self.ranger_list = [self.sensor_BL, self.sensor_BR, 
+                             self.sensor_GL, self.sensor_GR]
+                             
         #self.ranger_list = [self.sensor_BR]
         self.rangerPub = rospy.Publisher("tof_data", Float64MultiArray, queue_size=10)
         # rospy.Timer(rospy.Duration(0.001 * self.ranging_duration_in_ms), self.timerCallback)

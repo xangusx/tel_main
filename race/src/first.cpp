@@ -5,21 +5,29 @@ void first()
     // MoveTo(x,y,max_vel,acceleration);
     // ros::NodeHandle nh;
     // ros::Rate rate(1);
-    // for(int i=0;i<10;i++)
+    // for(int i=0;i<7;i++)
     // {
+    //     std::cout<<i<<"\n";
     //     rate.sleep();
     // }
-    Scara_move(0,0,1);
+
+    // first_state = Scara_move(0,0,1,first_state);    
+    // // Scara_move(0,29.0832266,0);
+    // first_state = Scara_move(0,29,0,first_state);
+    // first_state = Scara_move(0,0,1,first_state);
+    // first_state = Scara_move(-29,0,0,first_state);
+    // first_state = Scara_move(0,0,1,first_state);
+
     MoveTo(20,0,0.5,0.02);
     MoveTo(-20,0,0.5,0.02);
     MoveTo(0,0,0.5,0.02);
     MoveTo(0,20,0.5,0.02);
-    // MoveTo(0,-20,0.5,0.02);
-    // MoveTo(20,0,0.5,0.02);
-    // MoveTo(0,20,0.5,0.02);
-    // MoveTo(-20,0,0.5,0.02);
+    MoveTo(0,-20,0.5,0.02);
+    MoveTo(20,0,0.5,0.02);
+    MoveTo(0,20,0.5,0.02);
+    MoveTo(-20,0,0.5,0.02);
     MoveTo(0,0,0.5,0.02);
-    Scara_move(0,29.0832266,0);
+    
     // Scara_move(x,y,init)
     
     

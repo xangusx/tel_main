@@ -12,36 +12,45 @@ void callbackfunc(const std_msgs::Float64MultiArray::ConstPtr &msg){
 void calib_front(){
 
     ros::spinOnce();
+    if(vl53l0x[0]!=(-100) && vl53l0x[1]!=(-100)){
+        if(vl53l0x[0] > vl53l0x[1]){ //counterclockwise +
 
-    if(vl53l0x[0] > vl53l0x[1]){ //counterclockwise +
+            rotate = 0;
 
-        rotate = 0;
+        }else if(vl53l0x[0] < vl53l0x[1]){  // clockwise -
 
-    }else if(vl53l0x[0] < vl53l0x[1]){  // clockwise -
-
-        rotate = 2;
+            rotate = 2;
         
+        }
+        dis_tance = fabs(vl53l0x[0]-vl53l0x[1]);
+        do_calib(rotate, dis_tance);
+    }else{
+        std::cout << "Range Error!" << std::endl;
     }
-    dis_tance = fabs(vl53l0x[0]-vl53l0x[1]);
-    do_calib(rotate, dis_tance);
+
+    
 
 }
 
 void calib_left(){
 
     ros::spinOnce();
-
-    if(vl53l0x[2] > vl53l0x[3]){
+    if(vl53l0x[2]!=(-100) && vl53l0x[3]!=(-100)){
+        
+        if(vl53l0x[2] > vl53l0x[3]){
             
-       rotate = 1;
+            rotate = 1;
 
-    }else if(vl53l0x[2] < vl53l0x[3]){
+        }else if(vl53l0x[2] < vl53l0x[3]){
             
-        rotate = 3;
+            rotate = 3;
 
+        }
+        dis_tance = fabs(vl53l0x[2]-vl53l0x[3]);
+        do_calib(rotate, dis_tance);
+    }else{
+        std::cout << "Range Error!" << std::endl;
     }
-
-    do_calib(rotate, dis_tance);
 
 }
 
