@@ -42,5 +42,6 @@ float check_distance(float x,float y,float position_x,float position_y);
 float len(float x,float y);
 void go(float target_x,float target_y,float middle_point,float max_vel,float acceleration);
 void turn(float target_w,float middle_w,float max_angular_vel,float angular_accel);
+void first_move(int wait);
 
 #endif

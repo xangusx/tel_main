@@ -31,6 +31,7 @@ float vx = 0,vy = 0,vw = 0;
 float dt = 0;
 float delta_x = 0,delta_y = 0,delta_w = 0;
 float position_x = 0,position_y = 0,position_w = 0;
+float px = 1.95,py=2;
 
 
 // float vel_linear_x,vel_linear_y,vel_linear_w;

@@ -18,15 +18,20 @@ void first()
     // first_state = Scara_move(-29,0,0,first_state);
     // first_state = Scara_move(0,0,1,first_state);
 
-    MoveTo(20,0,0.5,0.02);
-    MoveTo(-20,0,0.5,0.02);
-    MoveTo(0,0,0.5,0.02);
-    MoveTo(0,20,0.5,0.02);
-    MoveTo(0,-20,0.5,0.02);
-    MoveTo(20,0,0.5,0.02);
-    MoveTo(0,20,0.5,0.02);
-    MoveTo(-20,0,0.5,0.02);
-    MoveTo(0,0,0.5,0.02);
+    first_move(60);
+    MoveTo(0,60,0.5,0.01);
+    MoveTo(100,60,0.5,0.01);
+    MoveTo(100,0,0.5,0.01);
+    MoveTo(0,0,0.5,0.01);
+    // MoveTo(-20,0,0.5,0.02);
+    // MoveTo(-20,0,0.5,0.02);
+    // MoveTo(0,0,0.5,0.02);
+    // MoveTo(0,20,0.5,0.02);
+    // MoveTo(0,-20,0.5,0.02);
+    // MoveTo(20,0,0.5,0.02);
+    // MoveTo(0,20,0.5,0.02);
+    // MoveTo(-20,0,0.5,0.02);
+    // MoveTo(0,0,0.5,0.02);
     
     // Scara_move(x,y,init)
     

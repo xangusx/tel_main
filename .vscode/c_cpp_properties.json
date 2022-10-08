@@ -8,7 +8,8 @@
             "includePath": [
                 "/opt/ros/noetic/include/**",
                 "/usr/include/**",
-                "${workspaceFolder}/race/include"
+                "${workspaceFolder}/race/include",
+                "${workspaceFolder}/ekf_odom/include"
             ],
             "name": "ROS",
             "intelliSenseMode": "gcc-x64",

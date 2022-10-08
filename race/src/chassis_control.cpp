@@ -1,5 +1,23 @@
  #include "chassis_control.h"
 
+void first_move(int wait)
+{
+    ros::NodeHandle nh;
+    vel_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel",1);
+    ros::Rate rate(r);
+    geometry_msgs::Twist vel_msg;
+    vel_msg.linear.x = 0;
+    vel_msg.linear.y = 0;
+
+    for(int i=0;i<wait;i++)
+    {
+        vel_pub.publish(vel_msg);
+        rate.sleep();
+    }
+    
+
+}
+
 void MoveTo(float x,float y,float max_vel,float acceleration)
 {
     ros::NodeHandle nh;

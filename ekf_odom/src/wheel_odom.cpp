@@ -107,7 +107,7 @@ int main(int argc, char **argv)
 
 void encoder_callback(const geometry_msgs::Twist::ConstPtr& vel_data)
 {
-    vx = vel_data->linear.x*rpstocms;
-    vy = vel_data->linear.y*rpstocms;
+    vx = vel_data->linear.x*rpstocms*px;
+    vy = vel_data->linear.y*rpstocms*py;
     vw = vel_data->angular.z;
 }
