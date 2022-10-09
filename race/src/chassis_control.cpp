@@ -8,20 +8,19 @@ void first_move(int wait)
     geometry_msgs::Twist vel_msg;
     vel_msg.linear.x = 0;
     vel_msg.linear.y = 0;
-
+    vel_msg.angular.z = 0;
     for(int i=0;i<wait;i++)
     {
         vel_pub.publish(vel_msg);
         rate.sleep();
     }
-    
-
 }
 
 void MoveTo(float x,float y,float max_vel,float acceleration)
 {
     ros::NodeHandle nh;
-    wheel_odom_sub = nh.subscribe("wheel_odom", 1, odom_callback);
+    ekf_sub = nh.subscribe("/odometry/filtered", 1, ekf_callback);
+    // wheel_odom_sub = nh.subscribe("wheel_odom", 1, odom_callback);
     vel_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel",1);
     ros::spinOnce();
 
@@ -33,8 +32,9 @@ void MoveTo(float x,float y,float max_vel,float acceleration)
 void MoveTo(float x,float y,float w,float max_vel,float acceleration)
 {
     ros::NodeHandle nh;
-    wheel_odom_sub = nh.subscribe("wheel_odom", 1, odom_callback);
-    imu_sub = nh.subscribe("imu_angular", 1,imu_callback);
+    ekf_sub = nh.subscribe("/odometry/filtered", 1, ekf_callback);
+    // wheel_odom_sub = nh.subscribe("wheel_odom", 1, odom_callback);
+    // imu_sub = nh.subscribe("/imu/data", 1,imu_callback);
     vel_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel",1);
     ros::spinOnce();
 
@@ -46,7 +46,9 @@ void MoveTo(float x,float y,float w,float max_vel,float acceleration)
 void rotation(float w,float max_angular_vel,float angular_accel)
 {
     ros::NodeHandle nh;
-    imu_sub = nh.subscribe("imu_angular", 1,imu_callback);
+    ekf_sub = nh.subscribe("/odometry/filtered", 1, ekf_callback);
+    // wheel_odom_sub = nh.subscribe("wheel_odom", 1, odom_callback);
+    // imu_sub = nh.subscribe("/imu/data", 1,imu_callback);
     vel_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel",1);
     ros::spinOnce();
     delta_rotation = w - position_w;
@@ -57,6 +59,7 @@ void odom_callback(const nav_msgs::Odometry::ConstPtr& odom_data)
 {
     position_x = odom_data->pose.pose.position.x;
     position_y = odom_data->pose.pose.position.y;
+    // position_w = odom_data->pose.pose.position.z;
     geometry_msgs::Quaternion q;
     q.x = odom_data->pose.pose.orientation.x;
     q.y = odom_data->pose.pose.orientation.y;
@@ -65,9 +68,26 @@ void odom_callback(const nav_msgs::Odometry::ConstPtr& odom_data)
     // std::cout<<"q: "<<q<<"\n";
     position_w = tf::getYaw(q);
 }
+
+void ekf_callback(const nav_msgs::Odometry::ConstPtr& ekf_data)
+{
+    position_x = ekf_data->pose.pose.position.x;
+    position_y = ekf_data->pose.pose.position.y;
+    geometry_msgs::Quaternion q;
+    q.x = ekf_data->pose.pose.orientation.x;
+    q.y = ekf_data->pose.pose.orientation.y;
+    q.z = ekf_data->pose.pose.orientation.z;
+    q.w = ekf_data->pose.pose.orientation.w;
+    position_w = tf::getYaw(q);
+}
 void imu_callback(const sensor_msgs::Imu::ConstPtr& imu_data)
 {
-    angular = imu_data->angular_velocity.z;
+    geometry_msgs::Quaternion q;
+    q.x = imu_data->orientation.x;
+    q.y = imu_data->orientation.y;
+    q.z = imu_data->orientation.z;
+    q.w = imu_data->orientation.w;
+    imu_w = tf::getYaw(q);
 }
 
 float check_distance(float x,float y,float position_x,float position_y)
@@ -277,7 +297,7 @@ void turn(float target_w,float middle_w,float max_angular_vel,float angular_acce
         rate.sleep();
     }
 
-    while(abs(delta_rotation)>1&&ros::ok())
+    while(abs(delta_rotation)>3&&ros::ok())
     {
         std::cout<<"rotation_minvel\n";
         ros::spinOnce();

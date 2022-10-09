@@ -83,6 +83,7 @@ int main(int argc, char **argv)
         odom.pose.pose.position.x = position_x;
         odom.pose.pose.position.y = position_y;
         odom.pose.pose.position.z = 0;
+        // odom.pose.pose.position.z = position_w;
         //angular_z = position.z;
         odom.pose.pose.orientation = goal_quat;
 
@@ -109,5 +110,5 @@ void encoder_callback(const geometry_msgs::Twist::ConstPtr& vel_data)
 {
     vx = vel_data->linear.x*rpstocms*px;
     vy = vel_data->linear.y*rpstocms*py;
-    vw = vel_data->angular.z;
+    vw = vel_data->angular.z*180/PI;
 }
