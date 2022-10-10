@@ -19,8 +19,8 @@ void first_move(int wait)
 void MoveTo(float x,float y,float max_vel,float acceleration)
 {
     ros::NodeHandle nh;
-    ekf_sub = nh.subscribe("/odometry/filtered", 1, ekf_callback);
-    // wheel_odom_sub = nh.subscribe("wheel_odom", 1, odom_callback);
+    // ekf_sub = nh.subscribe("/odometry/filtered", 1, ekf_callback);
+    wheel_odom_sub = nh.subscribe("wheel_odom", 1, odom_callback);
     vel_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel",1);
     ros::spinOnce();
 
@@ -32,8 +32,8 @@ void MoveTo(float x,float y,float max_vel,float acceleration)
 void MoveTo(float x,float y,float w,float max_vel,float acceleration)
 {
     ros::NodeHandle nh;
-    ekf_sub = nh.subscribe("/odometry/filtered", 1, ekf_callback);
-    // wheel_odom_sub = nh.subscribe("wheel_odom", 1, odom_callback);
+    // ekf_sub = nh.subscribe("/odometry/filtered", 1, ekf_callback);
+    wheel_odom_sub = nh.subscribe("wheel_odom", 1, odom_callback);
     // imu_sub = nh.subscribe("/imu/data", 1,imu_callback);
     vel_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel",1);
     ros::spinOnce();
@@ -46,8 +46,8 @@ void MoveTo(float x,float y,float w,float max_vel,float acceleration)
 void rotation(float w,float max_angular_vel,float angular_accel)
 {
     ros::NodeHandle nh;
-    ekf_sub = nh.subscribe("/odometry/filtered", 1, ekf_callback);
-    // wheel_odom_sub = nh.subscribe("wheel_odom", 1, odom_callback);
+    // ekf_sub = nh.subscribe("/odometry/filtered", 1, ekf_callback);
+    wheel_odom_sub = nh.subscribe("wheel_odom", 1, odom_callback);
     // imu_sub = nh.subscribe("/imu/data", 1,imu_callback);
     vel_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel",1);
     ros::spinOnce();

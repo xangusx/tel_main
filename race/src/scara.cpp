@@ -18,7 +18,8 @@ bool Scara_move(float x,float y,int init,bool first_state)
 {
     ros::NodeHandle nh;
     scara_pub = nh.advertise<geometry_msgs::Point>("Destination",1);
-    ros::Rate rate(1);
+    int r = 10;
+    ros::Rate rate(r);
     // 可能用其他msgs才可以傳state
     geometry_msgs::Point point;
     point.x = x;
@@ -29,7 +30,7 @@ bool Scara_move(float x,float y,int init,bool first_state)
 
     if(first_state)
     {
-        for(int i=0;i<5;i++)
+        for(int i=0;i<(5*r);i++)
         {
             std::cout<<i<<"\n";
             scara_pub.publish(point);
@@ -39,31 +40,17 @@ bool Scara_move(float x,float y,int init,bool first_state)
     }
     else
     {
-        for(int i=0;i<5;i++)
+        do
         {
-            std::cout<<i<<"\n";
             scara_pub.publish(point);
-            rate.sleep();
-        }
-    }
+        }while(Scara_feedback()==0);
 
-    bool temp = true;
-    while(0)
-    {
-        if(temp)
+        while(1)
         {
-            temp = false;
-            std::cout<<"waiting scara feedback\n";
+            if(Scara_feedback()==1)
+                break;
         }
-        std::cout<<"waiting\n";
-        if(Scara_feedback()==1)
-        {
-            std::cout<<feedback<<"\n";
-            feedback = 0;
-            temp = true;
-            break;
-        }
-    }
+    }    
     return first_state;
 }
 
