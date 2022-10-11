@@ -23,13 +23,11 @@ void calib_front(){
         
         }
         dis_tance = fabs(vl53l0x[0]-vl53l0x[1]);
+        std::cout << rotate << std::endl;
         do_calib(rotate, dis_tance);
     }else{
         std::cout << "Range Error!" << std::endl;
     }
-
-    
-
 }
 
 void calib_left(){
@@ -74,12 +72,12 @@ int main(int argc, char ** argv)
             }
         }
         ros::spinOnce();
-
+        // std::cout << "1111" << std::endl;
         //call function
         calib_front();
         //calib_left();
 
-        rate.sleep();
+        break;
 
     }
 
@@ -87,80 +85,105 @@ int main(int argc, char ** argv)
 
 void do_calib(int rotate, float dis_tance){
 
+    ros::Rate rate(10);
     switch(rotate){
 
         case 0:
 
-            while((vl53l0x[0]-vl53l0x[1])>(0.5*dis_tance) && vl53l0x_vel.angular.z<Maxvel){
+            while((vl53l0x[0]-vl53l0x[1])>(0.5*dis_tance) && vl53l0x_vel.angular.z<=Maxvel){
+                std::cout << vl53l0x_vel.angular.z << std::endl;
                 ros::spinOnce();
                 vl53l0x_vel.angular.z += accel;
                 vl53l0x_pub.publish(vl53l0x_vel);
+                rate.sleep();
             }
 
             while((vl53l0x[0]-vl53l0x[1])>(0.5*dis_tance)){
+                std::cout << vl53l0x_vel.angular.z << std::endl;
                 ros::spinOnce();
                 vl53l0x_pub.publish(vl53l0x_vel);
             }
 
             while(vl53l0x[0]-vl53l0x[1] >= allow){
-
+                std::cout << vl53l0x_vel.angular.z << std::endl;
                 ros::spinOnce();
                 vl53l0x_vel.angular.z -= accel;
                 vl53l0x_pub.publish(vl53l0x_vel);
+                rate.sleep();
             }
             break;
         case 1:
 
-           while((vl53l0x[1]-vl53l0x[0])>(0.5*dis_tance) && fabs(vl53l0x_vel.angular.z)<Maxvel){
-                ros::spinOnce();
-                vl53l0x_vel.angular.z -= accel;
-                vl53l0x_pub.publish(vl53l0x_vel);
-            }
-
-            while((vl53l0x[1]-vl53l0x[0])>(0.5*dis_tance)){
-                ros::spinOnce();
-                vl53l0x_pub.publish(vl53l0x_vel);
-            }
-
-            while(vl53l0x[1]-vl53l0x[0] >= allow){
-
+            while((vl53l0x[2]-vl53l0x[3])>(0.5*dis_tance) && fabs(vl53l0x_vel.angular.z)<Maxvel){
                 ros::spinOnce();
                 vl53l0x_vel.angular.z += accel;
                 vl53l0x_pub.publish(vl53l0x_vel);
+                rate.sleep();
             }
-            break;
-        case 2:
 
-            while(vl53l0x[1]-vl53l0x[0] >= allow){
+            while((vl53l0x[2]-vl53l0x[3])>(0.5*dis_tance)){
+                ros::spinOnce();
+                vl53l0x_pub.publish(vl53l0x_vel);
+                rate.sleep();
+            }
+
+            while(vl53l0x[2]-vl53l0x[3] >= allow){
 
                 ros::spinOnce();
-                // p control
-                if(vl53l0x[1]-vl53l0x[0] > 5)
-                    vl53l0x_vel.angular.z = -(vl53l0x[1]-vl53l0x[0]) * 0.05;
-                if(vl53l0x[1]-vl53l0x[0] > 1 && vl53l0x[1]-vl53l0x[0] < 5)
-                    vl53l0x_vel.angular.z = -(vl53l0x[1]-vl53l0x[0]) * 0.1;
-                if(vl53l0x[1]-vl53l0x[0] < 1)
-                    vl53l0x_vel.angular.z = -(vl53l0x[1]-vl53l0x[0]) * 0.2;
-                //
+                vl53l0x_vel.angular.z -= accel;
                 vl53l0x_pub.publish(vl53l0x_vel);
+                rate.sleep();
+            }
+            break;
 
+           
+        case 2:
+
+            vl53l0x_vel.angular.z = 0;
+           while((vl53l0x[1]-vl53l0x[0])>(0.5*dis_tance) && fabs(vl53l0x_vel.angular.z)<=Maxvel){
+                std::cout << vl53l0x_vel.angular.z << std::endl;
+                ros::spinOnce();
+                vl53l0x_vel.angular.z -= accel;
+                vl53l0x_pub.publish(vl53l0x_vel);
+                rate.sleep();
+            }
+
+            while((vl53l0x[1]-vl53l0x[0])>(0.5*dis_tance)){
+                std::cout << vl53l0x_vel.angular.z << std::endl;
+                ros::spinOnce();
+                vl53l0x_pub.publish(vl53l0x_vel);
+                rate.sleep();
+            }
+
+            while(vl53l0x[1]-vl53l0x[0] >= allow && vl53l0x_vel.angular.z<0){
+                std::cout << vl53l0x_vel.angular.z << std::endl;
+                ros::spinOnce();
+                vl53l0x_vel.angular.z += accel;
+                vl53l0x_pub.publish(vl53l0x_vel);
+                rate.sleep();
             }
             break;
         case 3:
 
+           while((vl53l0x[3]-vl53l0x[2])>(0.5*dis_tance) && fabs(vl53l0x_vel.angular.z)<Maxvel){
+                ros::spinOnce();
+                vl53l0x_vel.angular.z -= accel;
+                vl53l0x_pub.publish(vl53l0x_vel);
+                rate.sleep();
+            }
+
+            while((vl53l0x[3]-vl53l0x[2])>(0.5*dis_tance)){
+                ros::spinOnce();
+                vl53l0x_pub.publish(vl53l0x_vel);
+                rate.sleep();
+            }
+
             while(vl53l0x[3]-vl53l0x[2] >= allow){
 
                 ros::spinOnce();
-                // p control
-                if(vl53l0x[3]-vl53l0x[2] > 5)
-                    vl53l0x_vel.angular.z = (vl53l0x[3]-vl53l0x[2]) * 0.05;
-                if(vl53l0x[3]-vl53l0x[2] > 1 && vl53l0x[3]-vl53l0x[2] < 5)
-                    vl53l0x_vel.angular.z = (vl53l0x[3]-vl53l0x[2]) * 0.1;
-                if(vl53l0x[3]-vl53l0x[2] < 1)
-                    vl53l0x_vel.angular.z = (vl53l0x[3]-vl53l0x[2]) * 0.2;
-                //
+                vl53l0x_vel.angular.z += accel;
                 vl53l0x_pub.publish(vl53l0x_vel);
-
+                rate.sleep();
             }
             break;
         case 4:

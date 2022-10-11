@@ -7,28 +7,27 @@ void ScaraTake()
     
     for(int i=0;i<numberofsquare;i++)
     {
-        
         x, y = square_coord(i-1);
         scara_first_state = Scara_move(x,y,0,scara_first_state);
     }  
 }
 
-
-bool Scara_move(float x,float y,int init,bool first_state)
+// Scara_move(x,y,state,first_state)
+// initialization : state = 0
+// which square : state = 1:3
+// put off square : state = 4
+bool Scara_move(float x,float y,float state,bool first_state)
 {
     ros::NodeHandle nh;
     scara_pub = nh.advertise<geometry_msgs::Point>("Destination",1);
     int r = 10;
     ros::Rate rate(r);
-    // 可能用其他msgs才可以傳state
     geometry_msgs::Point point;
     point.x = x;
     point.y = y;
-    point.z = init;
-    scara_pub.publish(point);
-    rate.sleep();
+    point.z = state;
 
-    if(first_state)
+    if(first_state&&ros::ok())
     {
         for(int i=0;i<(5*r);i++)
         {
@@ -38,15 +37,21 @@ bool Scara_move(float x,float y,int init,bool first_state)
         }
         first_state = false;
     }
-    else
+    else if(ros::ok())
     {
+        int temp = 0;
         do
         {
             scara_pub.publish(point);
-        }while(Scara_feedback()==0);
-
-        while(1)
+            std::cout<<"doing...\n";
+            std::cout<<"("<<point.x<<", "<<point.y<<")\n";
+            if (Scara_feedback()==0)
+                temp++;
+        }while(ros::ok()&&temp==0);
+        temp = 0;
+        while(ros::ok())
         {
+            std::cout<<"finish\n";
             if(Scara_feedback()==1)
                 break;
         }
