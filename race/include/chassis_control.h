@@ -29,8 +29,12 @@ float delta_x,delta_y,delta_distance;
 float middle_point;
 float stop_point = 20;//離目標點多遠時開始減速
 float stop_angular = 12;
+float stop_angle = 2;
 float min_vel = 0.2;
 float min_angular_vel = 0.002;
+float rotation_angle = 2;//check_turn
+float rotation_vel = 0.002;//check_turn
+float p_w = 0.001;
 int r = 20;//freqency
 
 void MoveTo(float x,float y,float max_vel,float acceleration);
@@ -46,5 +50,8 @@ float len(float x,float y);
 void go(float target_x,float target_y,float middle_point,float max_vel,float acceleration);
 void turn(float target_w,float middle_w,float max_angular_vel,float angular_accel);
 void first_move(int wait);
+void go_turn(float target_x,float target_y,float target_w,float middle_point,float max_vel,float acceleration);
+float check_turn(float target_w,float position_w);
+
 
 #endif

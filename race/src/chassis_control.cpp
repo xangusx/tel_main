@@ -41,7 +41,7 @@ void MoveTo(float x,float y,float w,float max_vel,float acceleration)
     delta_x,delta_y = check_distance(x,y,position_x,position_y);
     delta_distance = len(delta_x,delta_y);
     middle_point = delta_distance/2;
-    go(x,y,middle_point,max_vel,acceleration);
+    go_turn(x,y,w,middle_point,max_vel,acceleration);
 }
 void rotation(float w,float max_angular_vel,float angular_accel)
 {
@@ -297,7 +297,7 @@ void turn(float target_w,float middle_w,float max_angular_vel,float angular_acce
         rate.sleep();
     }
 
-    while(abs(delta_rotation)>3&&ros::ok())
+    while(abs(delta_rotation)>stop_angle&&ros::ok())
     {
         std::cout<<"rotation_minvel\n";
         ros::spinOnce();
@@ -311,4 +311,166 @@ void turn(float target_w,float middle_w,float max_angular_vel,float angular_acce
     std::cout<<"rotation_stop\n";
     vel_msg.angular.z = 0;
     vel_pub.publish(vel_msg);
+}
+
+void go_turn(float target_x,float target_y,float target_w,float middle_point,float max_vel,float acceleration)
+{
+     geometry_msgs::Twist vel_msg;
+    vel_msg.linear.x = 0;
+    vel_msg.linear.y = 0;
+    vel_msg.angular.z = 0;
+    if(delta_distance>0.05)
+    {    
+        int temp = 0;
+        
+        float accel_x,accel_y;
+        float dir_x,dir_y;
+        float now_vel = 0;
+        ros::Rate rate(r);
+        // accelerate
+        while(temp!=1&&delta_distance >= middle_point&&ros::ok())
+        {
+            std::cout<<"1\n";
+            ros::spinOnce();
+            delta_x,delta_y = check_distance(target_x,target_y,position_x,position_y);
+            dir_x = (delta_x*cos(position_w)+delta_y*sin(position_w));
+            dir_y = (delta_y*cos(position_w)-delta_x*sin(position_w));
+            std::cout<<"trans_x = "<<dir_x<<" trans_y = "<<dir_y<<"\n";
+            delta_distance = len(dir_x,dir_y);
+            dir_x = dir_x/delta_distance;
+            dir_y = dir_y/delta_distance;
+            
+            std::cout<<delta_x<<" "<<delta_y<<"\n";
+            std::cout<<dir_x<<" "<<dir_y<<"\n";
+            accel_x = dir_x*acceleration;
+            accel_y = dir_y*acceleration;
+            vel_msg.linear.x += accel_x;
+            vel_msg.linear.y += accel_y;
+            vel_msg.angular.z = check_turn(target_w,position_w);    
+        
+            now_vel = len(vel_msg.linear.x,vel_msg.linear.y);
+            if (now_vel>=max_vel)
+            {   
+                std::cout<<"2\n";
+                vel_msg.linear.x = max_vel*dir_x;
+                vel_msg.linear.y = max_vel*dir_y;
+                vel_msg.angular.z = check_turn(target_w,position_w);
+                temp = 1;
+            }
+
+            vel_pub.publish(vel_msg);
+            rate.sleep();
+        }
+        // keep max_vel until arrive stop_point
+        std::cout<<"3\n";
+        while(temp==1&&ros::ok())
+        {
+            std::cout<<"4\n";
+
+            ros::spinOnce();
+            delta_x,delta_y = check_distance(target_x,target_y,position_x,position_y);
+            dir_x = (delta_x*cos(position_w)+delta_y*sin(position_w));
+            dir_y = (delta_y*cos(position_w)-delta_x*sin(position_w));
+            delta_distance = len(dir_x,dir_y);
+            dir_x = dir_x/delta_distance;
+            dir_y = dir_y/delta_distance;
+
+            vel_msg.linear.x = max_vel*dir_x;
+            vel_msg.linear.y = max_vel*dir_y;
+            vel_msg.angular.z = check_turn(target_w,position_w);
+            vel_pub.publish(vel_msg);      
+            
+            std::cout<<"distance = "<<delta_distance<<"\n";
+            std::cout<<position_x<<" "<<position_y<<"\n";
+            std::cout<<dir_x<<" "<<dir_y<<"\n";
+            
+            if(delta_distance<=stop_point)
+            {
+                temp = 0;
+                break;    
+            }   
+            rate.sleep();
+        }
+        temp = 0;
+        std::cout<<"5\n";
+        //reduce speed 
+        while(temp==0&&ros::ok()&&delta_distance>2)
+        {
+            std::cout<<"6\n";
+            ros::spinOnce();
+            delta_x,delta_y = check_distance(target_x,target_y,position_x,position_y);
+            dir_x = (delta_x*cos(position_w)+delta_y*sin(position_w));
+            dir_y = (delta_y*cos(position_w)-delta_x*sin(position_w));
+            delta_distance = len(dir_x,dir_y);
+            dir_x = dir_x/delta_distance;
+            dir_y = dir_y/delta_distance;
+            accel_x = dir_x*acceleration;
+            accel_y = dir_y*acceleration;
+            vel_msg.linear.x -= accel_x;
+            vel_msg.linear.y -= accel_y;
+            vel_msg.angular.z = 0;
+            
+            now_vel = len(vel_msg.linear.x,vel_msg.linear.y);
+            std::cout<<"now_vel = "<<now_vel<<" \n";
+            std::cout<<dir_x<<" "<<dir_y<<"\n";
+            std::cout<<"distance = "<<delta_distance<<"\n";
+
+            if(now_vel<=min_vel)
+            {
+                vel_msg.linear.x = min_vel*dir_x;
+                vel_msg.linear.y = min_vel*dir_y;
+                vel_msg.angular.z = 0;
+                temp = 1;
+            }
+            vel_pub.publish(vel_msg);
+            rate.sleep();
+        }
+        std::cout<<"7\n";
+        //slowly move to target point
+        while(delta_distance>1&&ros::ok())
+        {
+            std::cout<<"8\n";
+            vel_msg.linear.x = min_vel*dir_x;
+            vel_msg.linear.y = min_vel*dir_y;
+            vel_msg.angular.z = check_turn(target_w,position_w);
+            vel_pub.publish(vel_msg);
+            
+            ros::spinOnce();
+            delta_x,delta_y = check_distance(target_x,target_y,position_x,position_y);
+            dir_x = (delta_x*cos(position_w)+delta_y*sin(position_w));
+            dir_y = (delta_y*cos(position_w)-delta_x*sin(position_w));
+            delta_distance = len(dir_x,dir_y);
+            dir_x = dir_x/delta_distance;
+            dir_y = dir_y/delta_distance;
+            rate.sleep();
+        }
+        // stop
+        std::cout<<"9\n";
+        vel_msg.linear.x = 0;
+        vel_msg.linear.y = 0;
+        vel_msg.angular.z = 0;
+        vel_pub.publish(vel_msg);
+    }
+    else
+    {
+        vel_msg.linear.x = 0;
+        vel_msg.linear.y = 0;
+        vel_msg.angular.z = 0;
+        vel_pub.publish(vel_msg);
+    }
+}
+
+float check_turn(float target_w,float position_w)
+{
+    float w = target_w-position_w*180/PI;
+    float vel_w = w*p_w;
+    if(abs(w)>=rotation_angle)
+    {
+        if(abs(vel_w)<rotation_vel)
+            return rotation_vel;
+        else
+            return vel_w;
+    }
+    else
+        return 0;
 }
