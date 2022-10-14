@@ -16,6 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   tf
   visualization_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -61,7 +62,8 @@ find_package(catkin REQUIRED COMPONENTS
 # Generate services in the 'srv' folder
 add_service_files(
   FILES
-  micro_switch.srv
+  # micro_switch.srv
+  odom_init_srv.srv
 )
 
 ## Generate actions in the 'action' folder
@@ -72,10 +74,11 @@ add_service_files(
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
+generate_messages(
+  DEPENDENCIES
+
 #   sensor_msgs#   std_msgs
-# )
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -107,9 +110,10 @@ add_service_files(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES race
-#  CATKIN_DEPENDS roscpp rospy sensor_msgs std_msgs tf
+ INCLUDE_DIRS include
+ LIBRARIES race
+ CATKIN_DEPENDS roscpp rospy sensor_msgs std_msgs tf 
+ CATKIN_DEPENDS message_runtime
 #  DEPENDS system_lib
 )
 
@@ -158,6 +162,10 @@ add_dependencies(second ${catkin_EXPORTED_TARGETS})
 add_library(third src/third.cpp)
 target_link_libraries(third chassis_control ${catkin_LIBRARIES})
 add_dependencies(third ${catkin_EXPORTED_TARGETS})
+
+add_library(odom_init src/odom_init.cpp)
+target_link_libraries(odom_init ${catkin_LIBRARIES})
+add_dependencies(odom_init  ${catkin_EXPORTED_TARGETS} )
 
 add_library(scara src/scara.cpp)
 target_link_libraries(scara detect_square ${catkin_LIBRARIES})
