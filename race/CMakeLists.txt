@@ -151,6 +151,14 @@ add_library(first src/first.cpp)
 target_link_libraries(first chassis_control scara ${catkin_LIBRARIES})
 add_dependencies(first ${catkin_EXPORTED_TARGETS})
 
+add_library(second src/second.cpp)
+target_link_libraries(second chassis_control ${catkin_LIBRARIES})
+add_dependencies(second ${catkin_EXPORTED_TARGETS})
+
+add_library(third src/third.cpp)
+target_link_libraries(third chassis_control ${catkin_LIBRARIES})
+add_dependencies(third ${catkin_EXPORTED_TARGETS})
+
 add_library(scara src/scara.cpp)
 target_link_libraries(scara detect_square ${catkin_LIBRARIES})
 add_dependencies(scara ${catkin_EXPORTED_TARGETS})
@@ -164,7 +172,7 @@ target_link_libraries(chassis_control ${catkin_LIBRARIES})
 add_dependencies(chassis_control ${catkin_EXPORTED_TARGETS})
 
 add_executable(main src/main.cpp)
-target_link_libraries(main chassis_control scara detect_square first ${catkin_LIBRARIES})
+target_link_libraries(main chassis_control scara detect_square first second third ${catkin_LIBRARIES})
 add_dependencies(main ${catkin_EXPORTED_TARGETS})
 
 add_executable(mecanum_test src/mecanum_test.cpp)

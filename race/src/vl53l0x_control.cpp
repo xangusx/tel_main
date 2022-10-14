@@ -23,7 +23,7 @@ void calib_front(){
         
         }
         dis_tance = fabs(vl53l0x[0]-vl53l0x[1]);
-        Maxvel = dis_tance*0.01;
+        Maxvel = dis_tance*0.001;
         accel = Maxvel*0.1;
         std::cout << rotate << std::endl;
         do_calib(rotate, dis_tance);
@@ -87,7 +87,7 @@ int main(int argc, char ** argv)
 
 void do_calib(int rotate, float dis_tance){
 
-    ros::Rate rate(1);
+    ros::Rate rate(10);
     switch(rotate){
 
         case 0:
@@ -98,6 +98,7 @@ void do_calib(int rotate, float dis_tance){
                 std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
                 std::cout << "maxvel: " << Maxvel << std::endl;
                 std::cout << "accel: " << accel << std::endl;
+                std::cout << "------" << std::endl;
                 ros::spinOnce();
                 vl53l0x_vel.angular.z += accel;
                 vl53l0x_pub.publish(vl53l0x_vel);
@@ -110,6 +111,7 @@ void do_calib(int rotate, float dis_tance){
                 std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
                 std::cout << "maxvel: " << Maxvel << std::endl;
                 std::cout << "accel: " << accel << std::endl;
+                std::cout << "------" << std::endl;
                 ros::spinOnce();
                 vl53l0x_vel.angular.z = Maxvel;
                 vl53l0x_pub.publish(vl53l0x_vel);
@@ -122,6 +124,7 @@ void do_calib(int rotate, float dis_tance){
                 std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
                 std::cout << "maxvel: " << Maxvel << std::endl;
                 std::cout << "accel: " << accel << std::endl;
+                std::cout << "------" << std::endl;
                 ros::spinOnce();
                 vl53l0x_vel.angular.z -= accel;
                 vl53l0x_pub.publish(vl53l0x_vel);
@@ -134,6 +137,7 @@ void do_calib(int rotate, float dis_tance){
                 std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
                 std::cout << "maxvel: " << Maxvel << std::endl;
                 std::cout << "accel: " << accel << std::endl;
+                std::cout << "------" << std::endl;
                 ros::spinOnce();
                 vl53l0x_vel.angular.z = Minvel;
                 vl53l0x_pub.publish(vl53l0x_vel);
@@ -146,6 +150,7 @@ void do_calib(int rotate, float dis_tance){
                 std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
                 std::cout << "maxvel: " << Maxvel << std::endl;
                 std::cout << "accel: " << accel << std::endl;
+                std::cout << "------" << std::endl;
                 ros::spinOnce();
                 vl53l0x_vel.angular.z = 0;
                 vl53l0x_pub.publish(vl53l0x_vel);
@@ -161,6 +166,7 @@ void do_calib(int rotate, float dis_tance){
                 std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
                 std::cout << "maxvel: " << Maxvel << std::endl;
                 std::cout << "accel: " << accel << std::endl;
+                std::cout << "------" << std::endl;
                 ros::spinOnce();
                 vl53l0x_vel.angular.z += accel;
                 vl53l0x_pub.publish(vl53l0x_vel);
@@ -173,6 +179,7 @@ void do_calib(int rotate, float dis_tance){
                 std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
                 std::cout << "maxvel: " << Maxvel << std::endl;
                 std::cout << "accel: " << accel << std::endl;
+                std::cout << "------" << std::endl;
                 ros::spinOnce();
                 vl53l0x_vel.angular.z = Maxvel;
                 vl53l0x_pub.publish(vl53l0x_vel);
@@ -185,6 +192,7 @@ void do_calib(int rotate, float dis_tance){
                 std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
                 std::cout << "maxvel: " << Maxvel << std::endl;
                 std::cout << "accel: " << accel << std::endl;
+                std::cout << "------" << std::endl;
                 ros::spinOnce();
                 vl53l0x_vel.angular.z -= accel;
                 vl53l0x_pub.publish(vl53l0x_vel);
@@ -197,6 +205,7 @@ void do_calib(int rotate, float dis_tance){
                 std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
                 std::cout << "maxvel: " << Maxvel << std::endl;
                 std::cout << "accel: " << accel << std::endl;
+                std::cout << "------" << std::endl;
                 ros::spinOnce();
                 vl53l0x_vel.angular.z = Minvel;
                 vl53l0x_pub.publish(vl53l0x_vel);
@@ -209,6 +218,7 @@ void do_calib(int rotate, float dis_tance){
                 std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
                 std::cout << "maxvel: " << Maxvel << std::endl;
                 std::cout << "accel: " << accel << std::endl;
+                std::cout << "------" << std::endl;
                 ros::spinOnce();
                 vl53l0x_vel.angular.z = 0;
                 vl53l0x_pub.publish(vl53l0x_vel);
@@ -225,6 +235,7 @@ void do_calib(int rotate, float dis_tance){
                 std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
                 std::cout << "maxvel: " << Maxvel << std::endl;
                 std::cout << "accel: " << accel << std::endl;
+                std::cout << "------" << std::endl;
                 ros::spinOnce();
                 vl53l0x_vel.angular.z -= accel;
                 vl53l0x_pub.publish(vl53l0x_vel);
@@ -237,6 +248,7 @@ void do_calib(int rotate, float dis_tance){
                 std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
                 std::cout << "maxvel: " << Maxvel << std::endl;
                 std::cout << "accel: " << accel << std::endl;
+                std::cout << "------" << std::endl;
                 ros::spinOnce();
                 vl53l0x_vel.angular.z = (-1)*Maxvel;
                 vl53l0x_pub.publish(vl53l0x_vel);
@@ -249,6 +261,7 @@ void do_calib(int rotate, float dis_tance){
                 std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
                 std::cout << "maxvel: " << Maxvel << std::endl;
                 std::cout << "accel: " << accel << std::endl;
+                std::cout << "------" << std::endl;
                 ros::spinOnce();
                 vl53l0x_vel.angular.z += accel;
                 vl53l0x_pub.publish(vl53l0x_vel);
@@ -261,6 +274,7 @@ void do_calib(int rotate, float dis_tance){
                 std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
                 std::cout << "maxvel: " << Maxvel << std::endl;
                 std::cout << "accel: " << accel << std::endl;
+                std::cout << "------" << std::endl;
                 ros::spinOnce();
                 vl53l0x_vel.angular.z = (-1)*Minvel;
                 vl53l0x_pub.publish(vl53l0x_vel);
@@ -273,6 +287,7 @@ void do_calib(int rotate, float dis_tance){
                 std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
                 std::cout << "maxvel: " << Maxvel << std::endl;
                 std::cout << "accel: " << accel << std::endl;
+                std::cout << "------" << std::endl;
                 ros::spinOnce();
                 vl53l0x_vel.angular.z = 0;
                 vl53l0x_pub.publish(vl53l0x_vel);
@@ -288,6 +303,7 @@ void do_calib(int rotate, float dis_tance){
                 std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
                 std::cout << "maxvel: " << Maxvel << std::endl;
                 std::cout << "accel: " << accel << std::endl;
+                std::cout << "------" << std::endl;
                 ros::spinOnce();
                 vl53l0x_vel.angular.z -= accel;
                 vl53l0x_pub.publish(vl53l0x_vel);
@@ -300,6 +316,7 @@ void do_calib(int rotate, float dis_tance){
                 std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
                 std::cout << "maxvel: " << Maxvel << std::endl;
                 std::cout << "accel: " << accel << std::endl;
+                std::cout << "------" << std::endl;
                 ros::spinOnce();
                 vl53l0x_vel.angular.z = (-1)*Maxvel;
                 vl53l0x_pub.publish(vl53l0x_vel);
@@ -312,6 +329,7 @@ void do_calib(int rotate, float dis_tance){
                 std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
                 std::cout << "maxvel: " << Maxvel << std::endl;
                 std::cout << "accel: " << accel << std::endl;
+                std::cout << "------" << std::endl;
                 ros::spinOnce();
                 vl53l0x_vel.angular.z += accel;
                 vl53l0x_pub.publish(vl53l0x_vel);
@@ -324,6 +342,7 @@ void do_calib(int rotate, float dis_tance){
                 std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
                 std::cout << "maxvel: " << Maxvel << std::endl;
                 std::cout << "accel: " << accel << std::endl;
+                std::cout << "------" << std::endl;
                 ros::spinOnce();
                 vl53l0x_vel.angular.z = (-1)*Minvel;
                 vl53l0x_pub.publish(vl53l0x_vel);
@@ -336,6 +355,7 @@ void do_calib(int rotate, float dis_tance){
                 std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
                 std::cout << "maxvel: " << Maxvel << std::endl;
                 std::cout << "accel: " << accel << std::endl;
+                std::cout << "------" << std::endl;
                 ros::spinOnce();
                 vl53l0x_vel.angular.z = 0;
                 vl53l0x_pub.publish(vl53l0x_vel);

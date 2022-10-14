@@ -1,4 +1,6 @@
 #include "first.h"
+#include "second.h"
+#include "third.h"
 
 // 建構子
 int main(int argc, char **argv)
@@ -8,6 +10,8 @@ int main(int argc, char **argv)
     while (ros::ok())
     {
         first();
+        // second();
+        // third();
         // ScaraTake();
         // Scaracoords(x,y)
         // Scaracoords(0,0);
