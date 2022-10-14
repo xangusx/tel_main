@@ -2,7 +2,7 @@
 #define _ODOM_INIT_H_
 
 #include "ros/ros.h"
-
+#include "race/odom_init_srv.h"
 
 void odom_init(float x,float y,float w);
 

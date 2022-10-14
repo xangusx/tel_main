@@ -10,8 +10,8 @@ int main(int argc, char **argv)
     while (ros::ok())
     {
         first();
-        // second();
-        // third();
+        second();
+        third();
         // ScaraTake();
         // Scaracoords(x,y)
         // Scaracoords(0,0);
