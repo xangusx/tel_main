@@ -1,8 +1,8 @@
 #include <ros/ros.h>
 #include <std_msgs/Float64MultiArray.h>
 #include <geometry_msgs/Twist.h>
-#define allow_f 0.2
-#define allow_l 0.1
+#define allow_f 0.01
+#define allow_l 0.05
 
 float vl53l0x[4] = {0};
 int rotate;

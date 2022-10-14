@@ -23,7 +23,7 @@ void calib_front(){
         
         }
         dis_tance = fabs(vl53l0x[0]-vl53l0x[1]);
-        Maxvel = dis_tance*0.002;
+        Maxvel = dis_tance*0.01;
         accel = Maxvel*0.1;
         std::cout << rotate << std::endl;
         do_calib(rotate, dis_tance);
@@ -47,8 +47,8 @@ void calib_left(){
 
         }
         dis_tance = fabs(vl53l0x[2]-vl53l0x[3]);
-        Maxvel = dis_tance*0.002;
-        accel = Maxvel*0.1;
+        Maxvel = dis_tance*0.01;
+        accel = Maxvel*0.05;
         std::cout << rotate << std::endl;
         do_calib(rotate, dis_tance);
     }else{
@@ -76,8 +76,8 @@ int main(int argc, char ** argv)
                     
             }
         }
-        // calib_front();
-        calib_left();
+        calib_front();
+        //calib_left();
 
         break;
 
@@ -87,7 +87,7 @@ int main(int argc, char ** argv)
 
 void do_calib(int rotate, float dis_tance){
 
-    ros::Rate rate(100);
+    ros::Rate rate(1);
     switch(rotate){
 
         case 0:
@@ -136,6 +136,18 @@ void do_calib(int rotate, float dis_tance){
                 std::cout << "accel: " << accel << std::endl;
                 ros::spinOnce();
                 vl53l0x_vel.angular.z = Minvel;
+                vl53l0x_pub.publish(vl53l0x_vel);
+                rate.sleep();
+            }
+
+            while((vl53l0x[0]-vl53l0x[1])<=allow_f){
+                std::cout << "distance: " << dis_tance << std::endl;
+                std::cout << "distance_now: " << vl53l0x[0]-vl53l0x[1] << std::endl;
+                std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
+                std::cout << "maxvel: " << Maxvel << std::endl;
+                std::cout << "accel: " << accel << std::endl;
+                ros::spinOnce();
+                vl53l0x_vel.angular.z = 0;
                 vl53l0x_pub.publish(vl53l0x_vel);
                 rate.sleep();
             }
@@ -189,6 +201,17 @@ void do_calib(int rotate, float dis_tance){
                 vl53l0x_vel.angular.z = Minvel;
                 vl53l0x_pub.publish(vl53l0x_vel);
                 rate.sleep();
+            }
+
+             if((vl53l0x[2]-vl53l0x[3])<=allow_l){
+                std::cout << "distance: " << dis_tance << std::endl;
+                std::cout << "distance_now: " << vl53l0x[2]-vl53l0x[3] << std::endl;
+                std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
+                std::cout << "maxvel: " << Maxvel << std::endl;
+                std::cout << "accel: " << accel << std::endl;
+                ros::spinOnce();
+                vl53l0x_vel.angular.z = 0;
+                vl53l0x_pub.publish(vl53l0x_vel);
             }
             break;
 
@@ -244,6 +267,17 @@ void do_calib(int rotate, float dis_tance){
                 rate.sleep();
             }
 
+            if((vl53l0x[1]-vl53l0x[0]) <= allow_f){
+                std::cout << "distance: " << dis_tance << std::endl;
+                std::cout << "distance_now: " << vl53l0x[1]-vl53l0x[0] << std::endl;
+                std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
+                std::cout << "maxvel: " << Maxvel << std::endl;
+                std::cout << "accel: " << accel << std::endl;
+                ros::spinOnce();
+                vl53l0x_vel.angular.z = 0;
+                vl53l0x_pub.publish(vl53l0x_vel);
+            }
+
             break;
         case 3:
 
@@ -294,6 +328,17 @@ void do_calib(int rotate, float dis_tance){
                 vl53l0x_vel.angular.z = (-1)*Minvel;
                 vl53l0x_pub.publish(vl53l0x_vel);
                 rate.sleep();
+            }
+
+            if((vl53l0x[3]-vl53l0x[2]) <= allow_l){
+                std::cout << "distance: " << dis_tance << std::endl;
+                std::cout << "distance_now: " << vl53l0x[3]-vl53l0x[2] << std::endl;
+                std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
+                std::cout << "maxvel: " << Maxvel << std::endl;
+                std::cout << "accel: " << accel << std::endl;
+                ros::spinOnce();
+                vl53l0x_vel.angular.z = 0;
+                vl53l0x_pub.publish(vl53l0x_vel);
             }
             break;
         case 4:
