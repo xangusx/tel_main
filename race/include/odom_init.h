@@ -4,6 +4,6 @@
 #include "ros/ros.h"
 #include "race/odom_init_srv.h"
 
-void odom_init(float x,float y,float w);
+bool odom_init(float x,float y,float w);
 
 #endif

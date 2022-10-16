@@ -11,6 +11,7 @@ int main(int argc, char **argv)
 {
     ros::init(argc, argv, "wheel_odom");
     ros::NodeHandle nh;
+    odom_service = nh.advertiseService("init", init_odom); 
     // encoder_sub = nh.subscribe("encoder_data", 1, encoder_callback);
     // test
     encoder_sub = nh.subscribe("cmd_vel", 1, encoder_callback);
@@ -113,4 +114,12 @@ void encoder_callback(const geometry_msgs::Twist::ConstPtr& vel_data)
     vx = vel_data->linear.x*rpstocms;
     vy = vel_data->linear.y*rpstocms;
     vw = vel_data->angular.z*180/PI;
+}
+
+bool init_odom(race::odom_init_srv::Request &req,race::odom_init_srv::Response &res)
+{
+    position_x = req.x;
+    position_y = req.y;
+    position_w = req.w;
+    return true;
 }

@@ -15,6 +15,7 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   std_msgs
   tf
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -59,7 +60,8 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## Generate services in the 'srv' folder
 # add_service_files(
-#   FILES
+  # FILES
+  # odom_init_srv.srv
 #   Service1.srv
 #   Service2.srv
 # )
@@ -72,10 +74,10 @@ find_package(catkin REQUIRED COMPONENTS
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
+generate_messages(
+  DEPENDENCIES
 #   geometry_msgs#   nav_msgs#   sensor_msgs#   std_msgs
-# )
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -108,6 +110,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
  INCLUDE_DIRS include
+#  message_runtime
 #  LIBRARIES ekf_odom
 #  CATKIN_DEPENDS geometry_msgs nav_msgs roscpp rospy sensor_msgs std_msgs tf
 #  DEPENDS system_lib
@@ -121,6 +124,7 @@ catkin_package(
 ## Your package locations should be listed before other locations
 include_directories(
   include
+  ../../devel/include
   ${catkin_INCLUDE_DIRS}
 )
 
@@ -156,7 +160,7 @@ include_directories(
 
 # add_library(wheel_odom src/wheel_odom.cpp)
 add_executable(wheel_odom src/wheel_odom.cpp)
-target_link_libraries(wheel_odom ${catkin_LIBRARIES})
+target_link_libraries(wheel_odom odom_init ${catkin_LIBRARIES})
 add_dependencies(wheel_odom ${catkin_EXPORTED_TARGETS})
 
 # add_executable(imu src/imu.cpp)

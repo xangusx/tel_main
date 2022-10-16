@@ -180,7 +180,7 @@ target_link_libraries(chassis_control ${catkin_LIBRARIES})
 add_dependencies(chassis_control ${catkin_EXPORTED_TARGETS})
 
 add_executable(main src/main.cpp)
-target_link_libraries(main chassis_control scara detect_square first second third ${catkin_LIBRARIES})
+target_link_libraries(main chassis_control scara detect_square first second third odom_init ${catkin_LIBRARIES})
 add_dependencies(main ${catkin_EXPORTED_TARGETS})
 
 add_executable(mecanum_test src/mecanum_test.cpp)

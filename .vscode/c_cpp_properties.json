@@ -10,7 +10,9 @@
                 "/usr/include/**",
                 "${workspaceFolder}/race/include",
                 "${workspaceFolder}/ekf_odom/include",
-                "${workspaceFolder}/race/srv"
+                "/home/xangusx/tel_ws/devel/include/race",
+                "${workspaceFolder}/race/srv",
+                "/home/xangusx/tel_ws/devel/include"
             ],
             "name": "ROS",
             "intelliSenseMode": "gcc-x64",

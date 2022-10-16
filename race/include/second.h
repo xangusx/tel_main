@@ -3,6 +3,7 @@
 
 #include "ros/ros.h"
 #include "chassis_control.h"
+#include "odom_init.h"
 
 void second();
 
