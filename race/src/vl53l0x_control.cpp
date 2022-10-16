@@ -9,7 +9,7 @@ void callbackfunc(const std_msgs::Float64MultiArray::ConstPtr &msg){
 
 }
 
-void calib_front(){
+float calib_front(){
 
     ros::spinOnce();
     if(vl53l0x[0]!=(-100) && vl53l0x[1]!=(-100)){
@@ -26,13 +26,14 @@ void calib_front(){
         Maxvel = dis_tance*0.001;
         accel = Maxvel*0.1;
         std::cout << rotate << std::endl;
-        do_calib(rotate, dis_tance);
+        vl53l0x_front = do_calib(rotate, dis_tance);
     }else{
         std::cout << "Range Error!" << std::endl;
     }
+    return vl53l0x_front;
 }
 
-void calib_left(){
+float calib_left(){
 
     ros::spinOnce();
     if(vl53l0x[2]!=(-100) && vl53l0x[3]!=(-100)){
@@ -50,16 +51,16 @@ void calib_left(){
         Maxvel = dis_tance*0.005;
         accel = Maxvel*0.1;
         std::cout << rotate << std::endl;
-        do_calib(rotate, dis_tance);
+        vl53l0x_left = do_calib(rotate, dis_tance);
     }else{
         std::cout << "Range Error!" << std::endl;
     }
+    return vl53l0x_left;
 
 }
 
-int main(int argc, char ** argv)
-{
-    ros::init(argc, argv, "vl53l0x_control");
+float vl53(int op){
+
     ros::NodeHandle nh;
     vl53l0x_sub = nh.subscribe("tof_data", 1, callbackfunc);
     vl53l0x_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel",1);
@@ -76,16 +77,21 @@ int main(int argc, char ** argv)
                     
             }
         }
-        // calib_front();
-        calib_left();
+        if(op==1){
+            vl53l0x_volume = calib_front();
+        }else if(op==2){
+            vl53l0x_volume = calib_left();
+        }
 
-        break;
+        break ;
 
     }
 
+    return vl53l0x_volume;
+
 }
 
-void do_calib(int rotate, float dis_tance){
+float do_calib(int rotate, float dis_tance){
 
     ros::Rate rate(100);
     switch(rotate){
@@ -156,6 +162,7 @@ void do_calib(int rotate, float dis_tance){
                 vl53l0x_pub.publish(vl53l0x_vel);
             }
 
+            return vl53l0x[1];
             break;
         case 1:
 
@@ -222,9 +229,9 @@ void do_calib(int rotate, float dis_tance){
                 vl53l0x_vel.angular.z = 0;
                 vl53l0x_pub.publish(vl53l0x_vel);
             }
+            return vl53l0x[3];
             break;
 
-           
         case 2:
 
             vl53l0x_vel.angular.z = 0;
@@ -291,7 +298,7 @@ void do_calib(int rotate, float dis_tance){
                 vl53l0x_vel.angular.z = 0;
                 vl53l0x_pub.publish(vl53l0x_vel);
             }
-
+            return vl53l0x[0];
             break;
         case 3:
 
@@ -359,9 +366,10 @@ void do_calib(int rotate, float dis_tance){
                 vl53l0x_vel.angular.z = 0;
                 vl53l0x_pub.publish(vl53l0x_vel);
             }
+            return vl53l0x[2];
             break;
         case 4:
-
+            return 0;
             break;
 
     }
