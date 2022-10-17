@@ -12,12 +12,12 @@ void first()
     // first_state = Scara_move(0,0,0,first_state);   
     
     // MoveTo(x,y,max_vel,acceleration);
-    // first_move(60);
-    // rotation(-90,0.01,0.001); 
-    // rotation(0,0.01,0.001);
-    // MoveTo(50,0,0,0.5,0.01);
-    // MoveTo(0,50,90,0.5,0.01);
-    // MoveTo(0,0,0,0.5,0.01);
+    first_move(60);
+    rotation(-90,0.01,0.001); 
+    rotation(0,0.01,0.001);
+    MoveTo(50,0,0,0.5,0.01);
+    MoveTo(0,50,90,0.5,0.01);
+    MoveTo(0,0,0,0.5,0.01);
     // rotation(90,0.01,0.001);
 
     //test

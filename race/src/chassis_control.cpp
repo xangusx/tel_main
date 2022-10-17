@@ -43,6 +43,16 @@ void MoveTo(float x,float y,float w,float max_vel,float acceleration)
     middle_point = delta_distance/2;
     go_turn(x,y,w,middle_point,max_vel,acceleration);
 }
+void Move(float vel_x,float vel_y,float vel_w)
+{
+    ros::NodeHandle nh;
+    vel_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel",1);
+    geometry_msgs::Twist vel_msg;
+    vel_msg.linear.x = vel_x;
+    vel_msg.linear.y = vel_y;
+    vel_msg.angular.z = vel_w;
+    vel_pub.publish(vel_msg);
+}
 void rotation(float w,float max_angular_vel,float angular_accel)
 {
     ros::NodeHandle nh;

@@ -161,8 +161,7 @@ float do_calib(int rotate, float dis_tance){
                 vl53l0x_vel.angular.z = 0;
                 vl53l0x_pub.publish(vl53l0x_vel);
             }
-
-            return vl53l0x[1];
+            re = 1;
             break;
         case 1:
 
@@ -229,7 +228,7 @@ float do_calib(int rotate, float dis_tance){
                 vl53l0x_vel.angular.z = 0;
                 vl53l0x_pub.publish(vl53l0x_vel);
             }
-            return vl53l0x[3];
+            re = 3;
             break;
 
         case 2:
@@ -298,7 +297,7 @@ float do_calib(int rotate, float dis_tance){
                 vl53l0x_vel.angular.z = 0;
                 vl53l0x_pub.publish(vl53l0x_vel);
             }
-            return vl53l0x[0];
+            re = 0;
             break;
         case 3:
 
@@ -366,12 +365,9 @@ float do_calib(int rotate, float dis_tance){
                 vl53l0x_vel.angular.z = 0;
                 vl53l0x_pub.publish(vl53l0x_vel);
             }
-            return vl53l0x[2];
-            break;
-        case 4:
-            return 0;
+            re = 2;
             break;
 
     }
-
+    return vl53l0x[re];
 }

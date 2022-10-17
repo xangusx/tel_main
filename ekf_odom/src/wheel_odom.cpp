@@ -118,8 +118,12 @@ void encoder_callback(const geometry_msgs::Twist::ConstPtr& vel_data)
 
 bool init_odom(race::odom_init_srv::Request &req,race::odom_init_srv::Response &res)
 {
-    position_x = req.x;
-    position_y = req.y;
-    position_w = req.w;
+    if(req.x != -1)
+        position_x = req.x;
+    if(req.y != -1)
+        position_y = req.y;
+    if(req.w != -1)
+        position_w = req.w;
+
     return true;
 }

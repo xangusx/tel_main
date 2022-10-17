@@ -156,7 +156,7 @@ target_link_libraries(first chassis_control scara ${catkin_LIBRARIES})
 add_dependencies(first ${catkin_EXPORTED_TARGETS})
 
 add_library(second src/second.cpp)
-target_link_libraries(second chassis_control ${catkin_LIBRARIES})
+target_link_libraries(second chassis_control vl53l0x_control ${catkin_LIBRARIES})
 add_dependencies(second ${catkin_EXPORTED_TARGETS})
 
 add_library(third src/third.cpp)
@@ -191,9 +191,13 @@ add_executable(base_shapes src/base_shapes.cpp)
 target_link_libraries(base_shapes ${catkin_LIBRARIES})
 add_dependencies(base_shapes ${catkin_EXPORTED_TARGETS})
 
-add_executable(vl53l0x_control src/vl53l0x_control.cpp)
+add_library(vl53l0x_control src/vl53l0x_control.cpp)
 target_link_libraries(vl53l0x_control ${catkin_LIBRARIES})
 add_dependencies(vl53l0x_control ${catkin_EXPORTED_TARGETS})
+
+add_library(micro_control src/micro_control.cpp)
+target_link_libraries(micro_control ${catkin_LIBRARIES})
+add_dependencies(micro_control ${catkin_EXPORTED_TARGETS})
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the

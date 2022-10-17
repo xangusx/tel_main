@@ -10,7 +10,8 @@ int main(int argc, char **argv)
  
     while (ros::ok())
     {
-        odom_init(30,0,0);
+        // odom_init(30,0,0);
+        odom_init(0,0,0);
         first();
         second();
         third();

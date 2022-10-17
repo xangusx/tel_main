@@ -39,6 +39,7 @@ int r = 20;//freqency
 
 void MoveTo(float x,float y,float max_vel,float acceleration);
 void MoveTo(float x,float y,float w,float max_vel,float acceleration);
+void Move(float vel_x,float vel_y,float vel_w);
 void rotation(float w,float max_angular_vel,float angular_accel);
 
 void odom_callback(const nav_msgs::Odometry::ConstPtr& odom_data);
