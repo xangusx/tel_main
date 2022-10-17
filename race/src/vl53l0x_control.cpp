@@ -211,7 +211,7 @@ void do_calib(int rotate, float dis_tance){
                 rate.sleep();
             }
 
-             if(fabs((vl53l0x[2]-vl53l0x[3]))<=allow_l && ros::ok()){
+             if((vl53l0x[2]-vl53l0x[3])<=allow_l && ros::ok()){
                 std::cout << "distance: " << dis_tance << std::endl;
                 std::cout << "distance_now: " << vl53l0x[2]-vl53l0x[3] << std::endl;
                 std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;
@@ -348,7 +348,7 @@ void do_calib(int rotate, float dis_tance){
                 rate.sleep();
             }
 
-            if(fabs((vl53l0x[3]-vl53l0x[2])) <= allow_l && ros::ok()){
+            if((vl53l0x[3]-vl53l0x[2]) <= allow_l && ros::ok()){
                 std::cout << "distance: " << dis_tance << std::endl;
                 std::cout << "distance_now: " << vl53l0x[3]-vl53l0x[2] << std::endl;
                 std::cout << "angular_vel: " << vl53l0x_vel.angular.z << std::endl;

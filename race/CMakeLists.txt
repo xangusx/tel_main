@@ -187,6 +187,10 @@ add_executable(vl53l0x_control src/vl53l0x_control.cpp)
 target_link_libraries(vl53l0x_control ${catkin_LIBRARIES})
 add_dependencies(vl53l0x_control ${catkin_EXPORTED_TARGETS})
 
+add_executable(switch_test src/switch_test.cpp)
+target_link_libraries(switch_test ${catkin_LIBRARIES})
+
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use
