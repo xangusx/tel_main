@@ -9,7 +9,10 @@
                 "/opt/ros/noetic/include/**",
                 "/usr/include/**",
                 "${workspaceFolder}/race/include",
-                "${workspaceFolder}/ekf_odom/include"
+                "${workspaceFolder}/ekf_odom/include",
+                "${workspaceFolder}/race/srv",
+                "/home/ubuntu/TEL_2022_ws/devel/include",
+                "/home/ubuntu/TEL_2022_ws/devel/include"
             ],
             "name": "ROS",
             "intelliSenseMode": "gcc-x64",

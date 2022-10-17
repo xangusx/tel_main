@@ -12,6 +12,7 @@
 #include <iostream>
 #include <math.h>
 #include <vector>
+#include "race/odom_init_srv.h"
 
 
 #define PI 3.1415926
@@ -20,6 +21,7 @@
 ros::Publisher path_pub;
 ros::Publisher odom_pub;
 ros::Subscriber encoder_sub;
+ros::ServiceServer odom_service;
 
 int r = 100;//frequence
 float a = 12;//cm
@@ -38,5 +40,6 @@ float px = 1.95,py=2;
 // float vel_linear_delta_x,vel_linear_delta_y,vel_linear_delta_w;
 
 void encoder_callback(const geometry_msgs::Twist::ConstPtr& vel_data);
+bool init_odom(race::odom_init_srv::Request &req,race::odom_init_srv::Response &res);
 
 #endif

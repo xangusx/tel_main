@@ -4,6 +4,7 @@
 #include "ros/ros.h"
 #include "chassis_control.h"
 #include "scara.h"
+#include "odom_init.h"
 
 bool first_state = true;
 void first();

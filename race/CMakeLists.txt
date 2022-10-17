@@ -16,6 +16,7 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   tf
   visualization_msgs
+  message_generation
 )
 
 ## System dependencies are found with CMake's conventions
@@ -61,7 +62,8 @@ find_package(catkin REQUIRED COMPONENTS
 # Generate services in the 'srv' folder
 add_service_files(
   FILES
-  micro_switch.srv
+  # micro_switch.srv
+  odom_init_srv.srv
 )
 
 ## Generate actions in the 'action' folder
@@ -72,10 +74,11 @@ add_service_files(
 # )
 
 ## Generate added messages and services with any dependencies listed here
-# generate_messages(
-#   DEPENDENCIES
+generate_messages(
+  DEPENDENCIES
+
 #   sensor_msgs#   std_msgs
-# )
+)
 
 ################################################
 ## Declare ROS dynamic reconfigure parameters ##
@@ -107,9 +110,10 @@ add_service_files(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-#  INCLUDE_DIRS include
-#  LIBRARIES race
-#  CATKIN_DEPENDS roscpp rospy sensor_msgs std_msgs tf
+ INCLUDE_DIRS include
+ LIBRARIES race
+ CATKIN_DEPENDS roscpp rospy sensor_msgs std_msgs tf 
+ CATKIN_DEPENDS message_runtime
 #  DEPENDS system_lib
 )
 
@@ -139,25 +143,21 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/race_node.cpp)
 
-# add_library(test src/test.cpp)
-# target_link_libraries(test ${catkin_LIBRARIES})
-# add_dependencies(test ${catkin_EXPORTED_TARGETS})
-
-# add_executable(main src/main.cpp)
-# target_link_libraries(main test ${catkin_LIBRARIES})
-# add_dependencies(main ${catkin_EXPORTED_TARGETS})
-
 add_library(first src/first.cpp)
 target_link_libraries(first chassis_control scara ${catkin_LIBRARIES})
 add_dependencies(first ${catkin_EXPORTED_TARGETS})
 
 add_library(second src/second.cpp)
-target_link_libraries(second chassis_control ${catkin_LIBRARIES})
+target_link_libraries(second chassis_control vl53l0x_control ${catkin_LIBRARIES})
 add_dependencies(second ${catkin_EXPORTED_TARGETS})
 
 add_library(third src/third.cpp)
 target_link_libraries(third chassis_control ${catkin_LIBRARIES})
 add_dependencies(third ${catkin_EXPORTED_TARGETS})
+
+add_library(odom_init src/odom_init.cpp)
+target_link_libraries(odom_init ${catkin_LIBRARIES})
+add_dependencies(odom_init  ${catkin_EXPORTED_TARGETS} )
 
 add_library(scara src/scara.cpp)
 target_link_libraries(scara detect_square ${catkin_LIBRARIES})
@@ -172,7 +172,7 @@ target_link_libraries(chassis_control ${catkin_LIBRARIES})
 add_dependencies(chassis_control ${catkin_EXPORTED_TARGETS})
 
 add_executable(main src/main.cpp)
-target_link_libraries(main chassis_control scara detect_square first second third ${catkin_LIBRARIES})
+target_link_libraries(main chassis_control scara detect_square first second third odom_init ${catkin_LIBRARIES})
 add_dependencies(main ${catkin_EXPORTED_TARGETS})
 
 add_executable(mecanum_test src/mecanum_test.cpp)
@@ -183,13 +183,17 @@ add_executable(base_shapes src/base_shapes.cpp)
 target_link_libraries(base_shapes ${catkin_LIBRARIES})
 add_dependencies(base_shapes ${catkin_EXPORTED_TARGETS})
 
-add_executable(vl53l0x_control src/vl53l0x_control.cpp)
+add_library(vl53l0x_control src/vl53l0x_control.cpp)
 target_link_libraries(vl53l0x_control ${catkin_LIBRARIES})
 add_dependencies(vl53l0x_control ${catkin_EXPORTED_TARGETS})
 
-add_executable(switch_test src/switch_test.cpp)
-target_link_libraries(switch_test ${catkin_LIBRARIES})
+# <<<<<<< HEAD
 
+# =======
+add_library(micro_control src/micro_control.cpp)
+target_link_libraries(micro_control ${catkin_LIBRARIES})
+add_dependencies(micro_control ${catkin_EXPORTED_TARGETS})
+# >>>>>>> bb858ded537b4faebd1be05673954f5bd0a6fafe
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
