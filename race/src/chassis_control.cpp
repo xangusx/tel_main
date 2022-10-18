@@ -52,6 +52,7 @@ void Move(float vel_x,float vel_y,float vel_w)
     vel_msg.linear.y = vel_y;
     vel_msg.angular.z = vel_w;
     vel_pub.publish(vel_msg);
+    std::cout<<"move_finish\n";
 }
 void rotation(float w,float max_angular_vel,float angular_accel)
 {

@@ -12,10 +12,10 @@ int main(int argc, char **argv)
     {
         // odom_init(30,0,0);
         odom_init(0,0,0);
-        first();
+        // first();
         second();
-        third();
-        odom_init(0,0,0);
+        // third();
+        // odom_init(0,0,0);
         // ScaraTake();
         // Scaracoords(x,y)
         // Scaracoords(0,0);

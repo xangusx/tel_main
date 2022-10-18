@@ -148,7 +148,7 @@ target_link_libraries(first chassis_control scara ${catkin_LIBRARIES})
 add_dependencies(first ${catkin_EXPORTED_TARGETS})
 
 add_library(second src/second.cpp)
-target_link_libraries(second chassis_control vl53l0x_control ${catkin_LIBRARIES})
+target_link_libraries(second chassis_control vl53l0x_control micro_control ${catkin_LIBRARIES})
 add_dependencies(second ${catkin_EXPORTED_TARGETS})
 
 add_library(third src/third.cpp)

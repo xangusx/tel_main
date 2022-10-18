@@ -13,14 +13,16 @@ float calib_front(){
 
     ros::spinOnce();
     if(vl53l0x[0]!=(-100) && vl53l0x[1]!=(-100)){
-        if(vl53l0x[0] > vl53l0x[1]){ //counterclockwise +
+        if(vl53l0x[0] - vl53l0x[1] > allow_f){ //counterclockwise +
 
             rotate = 0;
 
-        }else if(vl53l0x[0] < vl53l0x[1]){  // clockwise -
+        }else if(vl53l0x[0] - vl53l0x[1] < (-allow_f)){  // clockwise -
 
             rotate = 2;
         
+        }else{
+            rotate = 4;
         }
         dis_tance = fabs(vl53l0x[0]-vl53l0x[1]);
         Maxvel = dis_tance*0.001;
@@ -38,14 +40,16 @@ float calib_left(){
     ros::spinOnce();
     if(vl53l0x[2]!=(-100) && vl53l0x[3]!=(-100)){
         
-        if(vl53l0x[2] > vl53l0x[3]){
+        if(vl53l0x[2] - vl53l0x[3]>allow_l){
             
             rotate = 1;
 
-        }else if(vl53l0x[2] < vl53l0x[3]){
+        }else if(vl53l0x[2] - vl53l0x[3]<(-allow_l)){
             
             rotate = 3;
 
+        }else{
+            rotate = 5;
         }
         dis_tance = fabs(vl53l0x[2]-vl53l0x[3]);
         Maxvel = dis_tance*0.005;
@@ -367,7 +371,13 @@ float do_calib(int rotate, float dis_tance){
             }
             re = 2;
             break;
-
+        case 4:
+            re = 0;
+            break;
+        case 5:
+            re = 2;
+            break;
     }
+    std::cout<<"vl53 finish\n";
     return vl53l0x[re];
 }
