@@ -143,6 +143,10 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/race_node.cpp)
 
+add_executable(reset src/reset.cpp)
+target_link_libraries(reset ${catkin_LIBRARIES})
+add_dependencies(reset ${catkin_EXPORTED_TARGETS})
+
 add_library(first src/first.cpp)
 target_link_libraries(first chassis_control scara ${catkin_LIBRARIES})
 add_dependencies(first ${catkin_EXPORTED_TARGETS})
