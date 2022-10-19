@@ -2,8 +2,8 @@
 
 void second()
 {
-    first_move(60);
-    odom_init(0,35,0);
+    // first_move(60);
+    // odom_init(0,35,0);
     MoveTo(0,18,0.5,0.01);
     MoveTo(80,18,0.5,0.01);
     // distance = vl53(2);
