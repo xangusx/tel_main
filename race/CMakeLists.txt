@@ -143,6 +143,10 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/race_node.cpp)
 
+add_executable(imu_climb src/imu_climb.cpp)
+target_link_libraries(imu_climb ${catkin_LIBRARIES})
+add_dependencies(imu_climb ${catkin_EXPORTED_TARGETS})
+
 add_executable(reset src/reset.cpp)
 target_link_libraries(reset ${catkin_LIBRARIES})
 add_dependencies(reset ${catkin_EXPORTED_TARGETS})
@@ -191,13 +195,10 @@ add_library(vl53l0x_control src/vl53l0x_control.cpp)
 target_link_libraries(vl53l0x_control ${catkin_LIBRARIES})
 add_dependencies(vl53l0x_control ${catkin_EXPORTED_TARGETS})
 
-# <<<<<<< HEAD
-
-# =======
 add_library(micro_control src/micro_control.cpp)
 target_link_libraries(micro_control ${catkin_LIBRARIES})
 add_dependencies(micro_control ${catkin_EXPORTED_TARGETS})
-# >>>>>>> bb858ded537b4faebd1be05673954f5bd0a6fafe
+
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the

@@ -1,8 +1,8 @@
 #include <imu_climb.h>
 
 void imu_callback(const geometry_msgs::Point::ConstPtr &msg){
-    angle.x = msg->x;
-    angle.y = msg->y;
+    angle.x = msg->y;
+    angle.y = msg->x;
     angle.z = msg->z;
 }
 
@@ -39,19 +39,22 @@ int main(int argc, char** argv){
             imu_vel_pub.publish(imu_vel);
         }
 
-        while(angle.x >= 2 && ros::ok()){
+        while(angle.x >= 0 && ros::ok()){
             ros::spinOnce();
             if(imu_vel.linear.x <= 0){
-                break;
+                imu_vel.linear.x =0;
+                imu_vel_pub.publish(imu_vel);
+                // break;
             }else{
                 imu_vel.linear.x -=accel_n_c;
             }    
             imu_vel_pub.publish(imu_vel);
         }
-
+        break;
     }
     // return imu_yaw_init;
     // imu_rotate(imu_yaw_init);
+    
 
 }
 
