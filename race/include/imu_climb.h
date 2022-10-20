@@ -13,13 +13,13 @@ ros::Publisher imu_vel_pub;
 geometry_msgs::Point angle;
 geometry_msgs::Twist imu_vel;
 
-float accel_p_c = 0.01;
-float accel_n_c = 0.1;
+float accel_p_c = 0.005;
+float accel_n_c = 0.01;
 float accel_spin;
 float Maxvel_climb = 1.6;
 float Maxvel_spin;
 float Minvel_spin = 0.01;
-float active_angle = 10;
 float imu_yaw_init;
 float spin_allow = 0.1;
 float angle_diff;
+float plane_angle = 0;

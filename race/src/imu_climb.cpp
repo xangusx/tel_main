@@ -22,7 +22,7 @@ int main(int argc, char** argv){
 
         imu_yaw_init = angle.z;
 
-        while(angle.x >= 0 && ros::ok()){   //平地前進(到上坡前)
+        while(angle.x >= plane_angle && ros::ok()){   //平地前進(到上坡前)
             ros::spinOnce();
             if(imu_vel.linear.x >= Maxvel_climb){
                 imu_vel.linear.x = Maxvel_climb;
@@ -33,13 +33,13 @@ int main(int argc, char** argv){
             rate.sleep();
         }
 
-        while(angle.x <= 2 && ros::ok()){   //衝上上坡
+        while(angle.x <= plane_angle && ros::ok()){   //衝上上坡
             ros::spinOnce(); 
             imu_vel.linear.x = Maxvel_climb;
             imu_vel_pub.publish(imu_vel);
         }
 
-        while(angle.x >= 0 && ros::ok()){
+        while(angle.x >= plane_angle && ros::ok()){   //煞車
             ros::spinOnce();
             if(imu_vel.linear.x <= 0){
                 imu_vel.linear.x =0;
