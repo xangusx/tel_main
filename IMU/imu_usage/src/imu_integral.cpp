@@ -36,12 +36,15 @@ int main(int argc, char** argv){
     ros::Publisher imu_angle_pub = nh.advertise<geometry_msgs::Point>("imu_angle",1);
     float freq = 5;
     ros::Rate rate(freq);
+    float z1;
+    int ss = 1;
 
     double roll, pitch, yaw; // Can't use float!
 
 
     while(ros::ok()){
 
+        
         ros::spinOnce();
 
         tf::Quaternion q1(imu.orientation.x, imu.orientation.y, imu.orientation.z, imu.orientation.w);
@@ -52,16 +55,18 @@ int main(int argc, char** argv){
         tf::Matrix3x3(q1).getRPY(roll, pitch, yaw);
 
         //angle.z = tf::getYaw(q1) * 180 / M_PI;
-        angle.x = roll * 180.0 / M_PI * 0.9;
+        angle.x = roll * 180.0 / M_PI;
         angle.y = pitch * 180.0 / M_PI;
-        
-            
-        
         angle.z = yaw * 180.0 / M_PI;
+
+        if(angle.z >= (-180) && angle.z <= 180 && ss==1){
+            z1 = angle.z;
+            ss = 0;
+        }
 
         std::cout << "X : " << angle.x << std::endl;
         std::cout << "Y : " << angle.y << std::endl;
-        std::cout << "Z : " << angle.z << std::endl << "--------------------------" << std::endl;
+        std::cout << "Z : " << angle.z -z1 << "、" << z1 << std::endl << "--------------------------" << std::endl;
 
         imu_angle_pub.publish(angle);
         rate.sleep();

@@ -32,12 +32,15 @@ int main(int argc, char** argv){
             imu_vel_pub.publish(imu_vel);
             rate.sleep();
         }
+        std::cout << angle.x <<"\n";
 
-        while(angle.x <= plane_angle && ros::ok()){   //衝上上坡
+        while(angle.x < plane_angle && ros::ok()){   //衝上上坡
             ros::spinOnce(); 
             imu_vel.linear.x = Maxvel_climb;
             imu_vel_pub.publish(imu_vel);
+            // std::cout << "66666\n";
         }
+        std::cout << angle.x <<"\n";
 
         while(angle.x >= plane_angle && ros::ok()){   //煞車
             ros::spinOnce();
