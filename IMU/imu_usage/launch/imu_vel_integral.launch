@@ -1,6 +1,6 @@
 <launch>
     <include file="$(find imu_driver)/launch/imu.launch"/>
-    <node name= "imu_accel" pkg="imu_usage" type="imu_accel" output="screen" required="true"/>
-    <node name= "imu_angle_calib" pkg="imu_usage" type="imu_angle_calib" output="screen" respawn="true" />
+    <node name= "imu_accel" pkg="imu_usage" type="imu_accel" required="true"/>
+    <node name= "imu_angle_calib" pkg="imu_usage" type="imu_angle_calib" respawn="true" />
     <node name= "imu_test" pkg="imu_usage" type="imu_test" output="screen" respawn="true"/>
 </launch>
