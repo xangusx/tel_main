@@ -60,7 +60,7 @@ int main(int argc, char** argv){
         break;
     }
     // return imu_yaw_init;
-    // imu_rotate(imu_yaw_init);
+    imu_rotate(0); //imu_yaw_init
     
 
 }
@@ -69,15 +69,15 @@ void imu_rotate(float imu_yaw_init){
 
     ros::spinOnce();
     angle_diff = angle_1.z - imu_yaw_init;
-    Maxvel_spin = angle_diff*0.001;
-    accel_spin = Maxvel_spin*0.1;
-    Minvel_spin = 0.01;
+    Maxvel_spin = angle_diff*-0.001;
+    accel_spin = Maxvel_spin*-0.1;
+    Minvel_spin = -0.01;
     if(angle_diff < 0){
         angle_diff = -angle_diff;
-        Minvel_spin = -0.01;
+        Minvel_spin = 0.01;
     }
     
-    while(ros::ok() && fabs(angle_1.z-imu_yaw_init)>0.5*angle_diff){
+    while(ros::ok() && fabs(angle_1.z-imu_yaw_init)>fabs(0.5*angle_diff)){
         ros::spinOnce();
         if(fabs(imu_vel.angular.z) < fabs(Maxvel_spin)){
             imu_vel.angular.z += accel_spin;
@@ -87,7 +87,7 @@ void imu_rotate(float imu_yaw_init){
         imu_vel_pub.publish(imu_vel);
     }
 
-    while(ros::ok() && fabs(angle_1.z-imu_yaw_init)<=0.5*angle_diff){
+    while(ros::ok() && fabs(angle_1.z-imu_yaw_init)<=fabs(0.5*angle_diff)){
         ros::spinOnce();
         if(fabs(angle.z-imu_yaw_init) <= spin_allow){
             imu_vel.angular.z = 0;
