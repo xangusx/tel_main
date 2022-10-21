@@ -1,6 +1,7 @@
 #include <ros/ros.h>
 #include <std_msgs/Float64MultiArray.h>
 #include <geometry_msgs/Twist.h>
+#include <std_msgs/Int64.h>
 #define allow_f 1.1
 #define allow_l 0.05
 
@@ -16,6 +17,7 @@ float vl53l0x_volume;
 int re = 0;
 
 geometry_msgs::Twist vl53l0x_vel;
+std_msgs::Int64 state;
 float do_calib(int rotate, float dis_tance);
 float calib_front();
 float calib_left();
@@ -23,3 +25,4 @@ float vl53(int op);
 
 ros::Subscriber vl53l0x_sub;
 ros::Publisher vl53l0x_pub;
+ros::Publisher vl53l0x_pub_1;

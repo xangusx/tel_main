@@ -199,6 +199,13 @@ add_library(micro_control src/micro_control.cpp)
 target_link_libraries(micro_control ${catkin_LIBRARIES})
 add_dependencies(micro_control ${catkin_EXPORTED_TARGETS})
 
+add_library(vl53l0x_3 src/vl53l0x_3.cpp)
+target_link_libraries(vl53l0x_3 ${catkin_LIBRARIES})
+add_dependencies(vl53l0x_3 ${catkin_EXPORTED_TARGETS})
+
+add_library(move_3 src/move_3.cpp)
+target_link_libraries(move_3 ${catkin_LIBRARIES})
+add_dependencies(move_3 ${catkin_EXPORTED_TARGETS})
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
