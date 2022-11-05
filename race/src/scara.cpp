@@ -1,16 +1,42 @@
 #include "scara.h"
 
-void ScaraTake()
+int ScaraTake(int which)
 {
-    numberofsquare = detect_square();
     float x,y;
+    int t;
+
+    if(which == 0)
+    {
+        numberofsquare = detect_square(); 
+    }
+    else
+    {
+        for(int i=0;i<numberofsquare;i++)
+            // trans(x,y,which);
+            x = x;
+    }
     
+
     for(int i=0;i<numberofsquare;i++)
     {
         x, y = square_coord(i-1);
+        t = check_boundary(x,y);
+        if(next_state<t)
+            next_state = t;
+
         scara_first_state = Scara_move(x,y,0,scara_first_state);
-    }  
+    }
+    return next_state;     
 }
+
+int check_boundary(float x,float y)
+{
+    if(x>100||y>100)
+        return 1;//across
+    else if(x<20)
+        return 2;//back
+}
+
 
 // Scara_move(x,y,state,first_state)
 // initialization : state = 0

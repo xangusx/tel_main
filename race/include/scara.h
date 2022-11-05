@@ -12,10 +12,12 @@ ros::Subscriber scara_feedback_sub;
 int numberofsquare;
 int feedback = 0;
 bool scara_first_state = true;
+int next_state = 0;
 
-void ScaraTake();
+int ScaraTake(int which);
 bool Scara_move(float x,float y,float state,bool first_state);
 bool Scara_feedback();
 void scara_feedback_callback(const std_msgs::Int64::ConstPtr& scara_feedback_msg);
+int check_boundary(float x,float y);
 
 #endif

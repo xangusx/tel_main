@@ -3,7 +3,7 @@
 #include "third.h"
 #include "odom_init.h"
 
-// 建構子
+
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "strategy");

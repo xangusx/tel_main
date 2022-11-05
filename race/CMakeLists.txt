@@ -17,6 +17,7 @@ find_package(catkin REQUIRED COMPONENTS
   tf
   visualization_msgs
   message_generation
+  # OpenCV REQUIRED
 )
 
 ## System dependencies are found with CMake's conventions
@@ -126,6 +127,7 @@ catkin_package(
 include_directories(
   include
   ${catkin_INCLUDE_DIRS}
+  ${OpenCV_INCLUDE_DIRS}
 )
 
 ## Declare a C++ library
