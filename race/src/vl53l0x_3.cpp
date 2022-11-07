@@ -1,4 +1,4 @@
-#include "vl53l0x_control.h"
+#include "vl53l0x_3.h"
 
 void callbackfunc(const std_msgs::Float64MultiArray::ConstPtr &msg){
 
@@ -9,24 +9,25 @@ void callbackfunc(const std_msgs::Float64MultiArray::ConstPtr &msg){
 
 }
 
-int main(int argc, char** argv){
+void vl53l0x_3(){
 
-    ros::init(argc, argv, "imu_control");
     ros::NodeHandle nh;
-    vl53l0x_sub = nh.subscribe("tof_data", 1, callbackfunc);
+    vl53l0x_sub_3 = nh.subscribe("tof_data", 1, callbackfunc);
+    vl53l0x_pub_1 = nh.advertise<std_msgs::Int64>("vl53_3",1);
     
     while(ros::ok()){
-
+        
         ros::spinOnce();
 
         if(fabs(vl53l0x[1]-vl53l0x[0])>40){
-            return 0;   //一開始就在重置點
+            state0.data = 0;   //在重置點
         }else if(vl53l0x[0]<=30){
-            return 1;   //在重置點"左"側
+            state0.data =  1;   //在重置點"左"側
         }else if(vl53l0x[1]>=50){
-            return 2;   //在重置點"右"側
+            state0.data = 2;   //在重置點"右"側
         }
-        break;
+        
+        vl53l0x_pub_1.publish(state0);
     }
 
 }

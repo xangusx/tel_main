@@ -145,6 +145,10 @@ include_directories(
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/race_node.cpp)
 
+add_library(imu_climb src/imu_climb.cpp)
+target_link_libraries(imu_climb ${catkin_LIBRARIES})
+add_dependencies(imu_climb ${catkin_EXPORTED_TARGETS})
+
 add_executable(reset src/reset.cpp)
 target_link_libraries(reset ${catkin_LIBRARIES})
 add_dependencies(reset ${catkin_EXPORTED_TARGETS})
@@ -158,7 +162,7 @@ target_link_libraries(second chassis_control vl53l0x_control micro_control ${cat
 add_dependencies(second ${catkin_EXPORTED_TARGETS})
 
 add_library(third src/third.cpp)
-target_link_libraries(third chassis_control ${catkin_LIBRARIES})
+target_link_libraries(third ${catkin_LIBRARIES})
 add_dependencies(third ${catkin_EXPORTED_TARGETS})
 
 add_library(odom_init src/odom_init.cpp)
@@ -178,7 +182,7 @@ target_link_libraries(chassis_control ${catkin_LIBRARIES})
 add_dependencies(chassis_control ${catkin_EXPORTED_TARGETS})
 
 add_executable(main src/main.cpp)
-target_link_libraries(main chassis_control scara detect_square first second third odom_init ${catkin_LIBRARIES})
+target_link_libraries(main chassis_control scara detect_square first second third odom_init imu_climb vl53l0x_3 move_3 ${catkin_LIBRARIES})
 add_dependencies(main ${catkin_EXPORTED_TARGETS})
 
 add_executable(mecanum_test src/mecanum_test.cpp)
@@ -193,13 +197,17 @@ add_library(vl53l0x_control src/vl53l0x_control.cpp)
 target_link_libraries(vl53l0x_control ${catkin_LIBRARIES})
 add_dependencies(vl53l0x_control ${catkin_EXPORTED_TARGETS})
 
-# <<<<<<< HEAD
-
-# =======
 add_library(micro_control src/micro_control.cpp)
 target_link_libraries(micro_control ${catkin_LIBRARIES})
 add_dependencies(micro_control ${catkin_EXPORTED_TARGETS})
-# >>>>>>> bb858ded537b4faebd1be05673954f5bd0a6fafe
+
+add_library(vl53l0x_3 src/vl53l0x_3.cpp)
+target_link_libraries(vl53l0x_3 ${catkin_LIBRARIES})
+add_dependencies(vl53l0x_3 ${catkin_EXPORTED_TARGETS})
+
+add_library(move_3 src/move_3.cpp)
+target_link_libraries(move_3 ${catkin_LIBRARIES})
+add_dependencies(move_3 ${catkin_EXPORTED_TARGETS})
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the

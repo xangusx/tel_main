@@ -1,6 +1,10 @@
+#ifndef _VL53L0X_COTROL_H
+#define _VL53L0X_COTROL_H
+
 #include <ros/ros.h>
 #include <std_msgs/Float64MultiArray.h>
 #include <geometry_msgs/Twist.h>
+#include <std_msgs/Int64.h>
 #define allow_f 1.1
 #define allow_l 0.05
 
@@ -23,3 +27,5 @@ float vl53(int op);
 
 ros::Subscriber vl53l0x_sub;
 ros::Publisher vl53l0x_pub;
+
+#endif
