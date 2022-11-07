@@ -18,7 +18,7 @@ int main(int argc, char **argv)
         {
             first_move(60);
             odom_init(0,0,0);
-            first();
+            // first();
             second();
             third();
             break;
