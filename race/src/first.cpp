@@ -13,8 +13,10 @@ void first()
     // MoveTo(x,y,max_vel,acceleration);
     // first_move(60);
 
+    MoveTo(50,50,0.5,0.01);
+    MoveTo(50,80,0.5,0.01);
+    MoveTo(95,80,0.5,0.01);
     int ch = 0;
-    MoveTo(50,0,0,0.5,0.01);
     ch = ScaraTake(ch);
     if(ch == 2)
     {
@@ -26,24 +28,10 @@ void first()
         MoveTo(0,0,0,0.5,0.01);
         ch = ScaraTake(ch);
     }
-    MoveTo(0,50,90,0.5,0.01);
-    rotation(-90,0.01,0.001); 
-    rotation(0,0.01,0.001);
-    MoveTo(50,0,0,0.5,0.01);
-    MoveTo(0,50,90,0.5,0.01);
-    MoveTo(0,0,0,0.5,0.01);
-    // ScaraTake();
-    // rotation(90,0.01,0.001);
-
-    //test
-    // MoveTo(-20,0,0.5,0.02);
-    // MoveTo(-20,0,0.5,0.02);
-    // MoveTo(0,0,0.5,0.02);
-    // MoveTo(0,20,0.5,0.02);
-    // MoveTo(0,-20,0.5,0.02);
-    // MoveTo(20,0,0.5,0.02);
-    // MoveTo(0,20,0.5,0.02);
-    // MoveTo(-20,0,0.5,0.02);
-    // MoveTo(0,0,0.5,0.02);
-    // vl53(left);
+    MoveTo(95,25,0.5,0.01);
+    MoveTo(240,25,0.5,0.01);
+    first_state = Scara_move(0,29,4,first_state);
+    MoveTo(240,65,0.5,0.01);
+    MoveTo(380,50,0.5,0.01);
+    
 }

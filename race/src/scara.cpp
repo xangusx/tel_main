@@ -53,6 +53,7 @@ bool Scara_move(float x,float y,float state,bool first_state)
     point.y = y;
     point.z = state;
 
+    //first connect
     if(first_state&&ros::ok())
     {
         for(int i=0;i<(5*r);i++)
@@ -63,6 +64,7 @@ bool Scara_move(float x,float y,float state,bool first_state)
         }
         first_state = false;
     }
+    
     else if(ros::ok())
     {
         int temp = 0;
