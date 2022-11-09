@@ -12,9 +12,9 @@ int main(int argc, char **argv)
     ros::init(argc, argv, "wheel_odom");
     ros::NodeHandle nh;
     odom_service = nh.advertiseService("init", init_odom); 
-    // encoder_sub = nh.subscribe("encoder_data", 1, encoder_callback);
+    encoder_sub = nh.subscribe("encoder_data", 1, encoder_callback);
     // test
-    encoder_sub = nh.subscribe("cmd_vel", 1, encoder_callback);
+    // encoder_sub = nh.subscribe("cmd_vel", 1, encoder_callback);
     path_pub = nh.advertise<nav_msgs::Path>("wheel_path",1);
     odom_pub = nh.advertise<nav_msgs::Odometry>("wheel_odom",1);
     tf::TransformBroadcaster odom_broadcaster;
