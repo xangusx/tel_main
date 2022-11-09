@@ -10,6 +10,7 @@
                 "/usr/include/**",
                 "${workspaceFolder}/race/include",
                 "${workspaceFolder}/ekf_odom/include",
+                "${workspaceFolder}/remote_control/include",
                 "${workspaceFolder}/race/srv",
                 "/home/xangusx/tel_ws/devel/include",
                 "/home/ubuntu/TEL_2022_ws/devel/include"
