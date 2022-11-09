@@ -10,10 +10,13 @@ bool odom_init(float x,float y,float w)
     srv.request.x = x;
     srv.request.y = y;
     srv.request.w = w;
-
-    if (client.call(srv))
+    while(ros::ok())
     {
-        std::cout<<srv.response.feedback<<"\n";
+        if (client.call(srv))
+        {
+            std::cout<<srv.response.feedback<<"\n";
+            return 1;
+            break;
+        }
     }
-    return 1;
 }

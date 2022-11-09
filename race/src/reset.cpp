@@ -15,6 +15,7 @@ int main(int argc, char **argv)
         puts(para_fillin);
         printf("%s\n",para_fillin);
         system(para_fillin);
+        
         if(reset_state!=0)
         {
             system("rosnode kill /strategy"); 

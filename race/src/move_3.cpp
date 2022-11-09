@@ -4,9 +4,8 @@ void callbackfunc(const std_msgs::Int64::ConstPtr &msg){
     state = msg->data;
 }
 
-int main(int argc, char** argv){
+void move_3(){
 
-    ros::init(argc, argv, "move_3");
     ros::NodeHandle nh;
     
     Move_3_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel",1);
