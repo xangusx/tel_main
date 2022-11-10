@@ -10,7 +10,7 @@ void third()
 
     imu_climb(); // 打開 imu_integral + imu_vel_integral.launch
     vl53(1); // 打開 vl53l0x.launch
-    vl53l0x_3();
+    // vl53l0x_3();
     move_3(); //打開 vl53l0x_3
 
     //用encoder移動

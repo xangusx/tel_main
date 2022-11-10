@@ -79,7 +79,6 @@ void odom_callback(const nav_msgs::Odometry::ConstPtr& odom_data)
     // std::cout<<"q: "<<q<<"\n";
     position_w = tf::getYaw(q);
 }
-
 void ekf_callback(const nav_msgs::Odometry::ConstPtr& ekf_data)
 {
     position_x = ekf_data->pose.pose.position.x;

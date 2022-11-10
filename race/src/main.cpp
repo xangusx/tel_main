@@ -19,8 +19,8 @@ int main(int argc, char **argv)
             first_move(60);
             odom_init(0,50,0);
             first();
-            second();
-            third();
+            // second();
+            // third();
             break;
         }
         else if (reset_state == 2)
