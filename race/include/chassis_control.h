@@ -35,7 +35,7 @@ float min_angular_vel = 0.002;
 float rotation_angle = 2;//check_turn
 float rotation_vel = 0.002;//check_turn
 float p_w = 0.001;
-int r = 20;//freqency
+int r = 10;//freqency
 
 void MoveTo(float x,float y,float max_vel,float acceleration);
 void MoveTo(float x,float y,float w,float max_vel,float acceleration);

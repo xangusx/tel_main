@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.0.2)
 project(race)
+set(OpenCV_DIR /usr/lib/aarch64-linux-gnu/cmake/opencv4)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
 # add_compile_options(-std=c++11)
@@ -17,7 +18,7 @@ find_package(catkin REQUIRED COMPONENTS
   tf
   visualization_msgs
   message_generation
-  # OpenCV REQUIRED
+  OpenCV REQUIRED
 )
 
 ## System dependencies are found with CMake's conventions
@@ -144,6 +145,10 @@ include_directories(
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
 # add_executable(${PROJECT_NAME}_node src/race_node.cpp)
+
+add_library(opencv src/opencv.cpp)
+target_link_libraries(opencv ${catkin_LIBRARIES})
+add_dependencies(opencv ${catkin_EXPORTED_TARGETS})
 
 add_library(imu_climb src/imu_climb.cpp)
 target_link_libraries(imu_climb ${catkin_LIBRARIES})

@@ -10,11 +10,13 @@ bool odom_init(float x,float y,float w)
     srv.request.x = x;
     srv.request.y = y;
     srv.request.w = w;
+    bool s;
     while(ros::ok())
     {
+        std::cout<<"waiting for odom\n";
         if (client.call(srv))
         {
-            std::cout<<srv.response.feedback<<"\n";
+            std::cout<<"odometry trans ："<<srv.response.feedback<<"\n";
             return 1;
             break;
         }
