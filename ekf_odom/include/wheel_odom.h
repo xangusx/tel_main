@@ -23,8 +23,8 @@ ros::Publisher odom_pub;
 ros::Subscriber encoder_sub;
 ros::ServiceServer odom_service;
 
-int r = 100;//frequence
-float a = 12;//cm
+int r = 50;//frequence
+float a = 12.5;//cm
 float b = 9.65;//cm
 float radius = 5;//cm
 float rpstocms = 2*PI*radius;

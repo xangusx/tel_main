@@ -26,16 +26,17 @@ int main(int argc, char **argv)
 
 void car_vel_callback(const geometry_msgs::Twist::ConstPtr& vel_data)
 {
-    vel_msg.linear.x = vel_data->linear.x;
-    vel_msg.linear.y = vel_data->linear.y;
-    vel_msg.angular.z = vel_data->angular.z;
+    vel_msg.linear.x = vel_data->linear.x*max_vel/125;
+    vel_msg.linear.y = vel_data->linear.y*max_vel/125;
+    vel_msg.angular.z = vel_data->angular.z*turn_vel;
 }
 
 void scara_callback(const geometry_msgs::Point::ConstPtr& scara_data)
 {
-    scara_msg.x = scara_data->x;
+    scara_msg.x = scara_data->z;
     scara_msg.y = scara_data->y;
-    scara_msg.z = scara_data->z;
+    scara_msg.z = scara_data->x;
+
 }
 
 void pump_callback(const geometry_msgs::Point::ConstPtr& pump_data)
