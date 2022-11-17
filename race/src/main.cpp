@@ -17,8 +17,7 @@ int main(int argc, char **argv)
         if(reset_state == 1||reset_state == 0)
         {
             first_move(60);
-            // odom_init(0,50,0);
-            // first_move(20);
+            // odom_init(0,0,0);
             first();
             second();
             third();

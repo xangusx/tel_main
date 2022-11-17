@@ -13,6 +13,7 @@ void first()
     // while(true){
     //     Move(0.5,0.0,0.0);
     // }
+    
     // MoveTo(50,0,0.5,0.03);
     // MoveTo(50,30,0.5,0.03);
     // MoveTo(94,30,0.5,0.03);
@@ -29,6 +30,7 @@ void first()
     //     MoveTo(0,0,0,0.5,0.01);
     //     ch = ScaraTake(ch);
     // }
+
     // MoveTo(94,-20,0.5,0.03);
     // rotation(0,0.01,0.001);
     // MoveTo(240,-20,0.5,0.03);
