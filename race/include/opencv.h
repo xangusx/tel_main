@@ -8,9 +8,17 @@
 using namespace cv;
 using namespace std;
 
+double square_coord[3][2] = { 0 };
+
+typedef struct {
+	double x;
+	double y;
+}coord;
+
 int getContours2(Mat& imgDil, Mat& img);
 void getContours(Mat &imgDil, Mat &img, int& temp);
-void open_camera();
+int open_camera();
+float coords_array(int n);
 
 
 #endif

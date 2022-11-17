@@ -175,19 +175,19 @@ target_link_libraries(odom_init ${catkin_LIBRARIES})
 add_dependencies(odom_init  ${catkin_EXPORTED_TARGETS} )
 
 add_library(scara src/scara.cpp)
-target_link_libraries(scara detect_square ${catkin_LIBRARIES})
+target_link_libraries(scara opencv ${catkin_LIBRARIES})
 add_dependencies(scara ${catkin_EXPORTED_TARGETS})
 
-add_library(detect_square src/detect_square.cpp)
-target_link_libraries(detect_square ${catkin_LIBRARIES})
-add_dependencies(detect_square ${catkin_EXPORTED_TARGETS})
+# add_library(detect_square src/detect_square.cpp)
+# target_link_libraries(detect_square opencv ${catkin_LIBRARIES})
+# add_dependencies(detect_square ${catkin_EXPORTED_TARGETS})
 
 add_library(chassis_control src/chassis_control.cpp)
 target_link_libraries(chassis_control ${catkin_LIBRARIES})
 add_dependencies(chassis_control ${catkin_EXPORTED_TARGETS})
 
 add_executable(main src/main.cpp)
-target_link_libraries(main chassis_control scara detect_square first second third odom_init imu_climb vl53l0x_3 move_3 ${catkin_LIBRARIES})
+target_link_libraries(main chassis_control scara opencv first second third odom_init imu_climb vl53l0x_3 move_3 ${catkin_LIBRARIES})
 add_dependencies(main ${catkin_EXPORTED_TARGETS})
 
 add_executable(mecanum_test src/mecanum_test.cpp)
