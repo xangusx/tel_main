@@ -20,7 +20,7 @@ int main(int argc, char **argv)
             // odom_init(0,0,0);
             first();
             second();
-            third();
+            // third();
             break;
         }
         else if (reset_state == 2)
@@ -28,7 +28,7 @@ int main(int argc, char **argv)
             // first_move(60);
             // odom_init(0,0,0);
             second();
-            third();
+            // third();
             break;
         }
         else if (reset_state == 3)

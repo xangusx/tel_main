@@ -19,7 +19,7 @@ void imu_climb(){
     imu_vel_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel",1);
     imu_sub_3 = nh.subscribe("imu_angle", 1, imu_callback);
     imu_sub_1 = nh.subscribe("imu_angular", 1, imu_1_callback);
-    ros::Rate rate(100);
+    ros::Rate rate(20);
 
     while(ros::ok()){
         
@@ -27,7 +27,7 @@ void imu_climb(){
 
         imu_yaw_init = angle.z;
 
-        while(angle.x >= plane_angle && ros::ok()){   //平地前進(到上坡前)
+        while(angle_1.x >= plane_angle && ros::ok()){   //平地前進(到上坡前)
             ros::spinOnce();
             if(imu_vel.linear.x >= Maxvel_climb){
                 imu_vel.linear.x = Maxvel_climb;
@@ -35,25 +35,35 @@ void imu_climb(){
                 imu_vel.linear.x += accel_p_c;
             }           
             imu_vel_pub.publish(imu_vel);
+            std::cout << "1" << "\n";
             rate.sleep();
         }
 
-        while(angle.x <= plane_angle && ros::ok()){   //衝上上坡
+        while(angle_1.x <= plane_angle && ros::ok()){   //衝上上坡
             ros::spinOnce(); 
             imu_vel.linear.x = Maxvel_climb;
             imu_vel_pub.publish(imu_vel);
+            std::cout << "2" << "\n";
+            rate.sleep();
         }
 
-        while(angle.x >= plane_angle && ros::ok()){   //煞車
+        while(angle_1.x >= plane_angle && ros::ok()){   //煞車
             ros::spinOnce();
             if(imu_vel.linear.x <= 0){
                 imu_vel.linear.x =0;
-                imu_vel_pub.publish(imu_vel);
+                for(int i = 0;i<100;i++){
+                    imu_vel_pub.publish(imu_vel);
+                    std::cout << "3" << "\n";
+                    rate.sleep();
+                }
+                
                 // break;
             }else{
                 imu_vel.linear.x -=accel_n_c;
             }    
             imu_vel_pub.publish(imu_vel);
+            std::cout << "4" << "\n";
+            rate.sleep();
         }
         break;
     }
@@ -66,8 +76,9 @@ void imu_climb(){
 void imu_rotate(float imu_yaw_init){
 
     ros::spinOnce();
+    ros::Rate rate(20);
     angle_diff = angle_1.z - imu_yaw_init;
-    Maxvel_spin = angle_diff*-0.001;
+    Maxvel_spin = angle_diff*-0.0001;
     accel_spin = Maxvel_spin*-0.1;
     Minvel_spin = -0.01;
     if(angle_diff < 0){
@@ -83,13 +94,19 @@ void imu_rotate(float imu_yaw_init){
             imu_vel.angular.z = Maxvel_spin;
         }
         imu_vel_pub.publish(imu_vel);
+        rate.sleep();
+        std::cout << "1" << "\n";
     }
 
     while(ros::ok() && fabs(angle_1.z-imu_yaw_init)<=fabs(0.5*angle_diff)){
         ros::spinOnce();
-        if(fabs(angle.z-imu_yaw_init) <= spin_allow){
+        if(fabs(angle_1.z-imu_yaw_init) <= spin_allow){
             imu_vel.angular.z = 0;
-            imu_vel_pub.publish(imu_vel);
+            for(int i = 0;i<100;i++){
+                imu_vel_pub.publish(imu_vel);
+                rate.sleep();
+                std::cout << "3" << "\n";
+            }
             break;
         }else{
             if(fabs(imu_vel.angular.z) > fabs(Minvel_spin)){
@@ -98,6 +115,8 @@ void imu_rotate(float imu_yaw_init){
                 imu_vel.angular.z = Minvel_spin;
             }
             imu_vel_pub.publish(imu_vel);
+            std::cout << "2" << "\n";
+            rate.sleep();
         }
     }
 
