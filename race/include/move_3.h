@@ -3,9 +3,13 @@
 
 #include <ros/ros.h>
 #include <geometry_msgs/Twist.h>
+#include "vl53l0x_control.h"
+#include <std_msgs/Float64MultiArray.h>
 #include <std_msgs/Int64.h>
 
 void move_3();
+void callbackfunc(const std_msgs::Float64MultiArray::ConstPtr &msg);
+
 ros::Subscriber vl53_3_sub;
 ros::Publisher Move_3_pub;
 

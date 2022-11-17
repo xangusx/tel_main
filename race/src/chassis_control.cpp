@@ -79,7 +79,6 @@ void odom_callback(const nav_msgs::Odometry::ConstPtr& odom_data)
     // std::cout<<"q: "<<q<<"\n";
     position_w = tf::getYaw(q);
 }
-
 void ekf_callback(const nav_msgs::Odometry::ConstPtr& ekf_data)
 {
     position_x = ekf_data->pose.pose.position.x;
@@ -183,6 +182,7 @@ void go(float target_x,float target_y,float middle_point,float max_vel,float acc
             
             if(delta_distance<=stop_point)
             {
+                kp = 
                 temp = 0;
                 break;    
             }   
@@ -190,8 +190,9 @@ void go(float target_x,float target_y,float middle_point,float max_vel,float acc
         }
         temp = 0;
         std::cout<<"5\n";
+        kp = len(vel_msg.linear.x,vel_msg.linear.y)/delta_distance;
         //reduce speed 
-        while(temp==0&&ros::ok()&&delta_distance>2)
+        while(temp==0&&ros::ok()&&delta_distance>stop_circle)
         {
             std::cout<<"6\n";
             ros::spinOnce();
@@ -199,12 +200,15 @@ void go(float target_x,float target_y,float middle_point,float max_vel,float acc
             dir_x = (delta_x*cos(position_w)+delta_y*sin(position_w));
             dir_y = (delta_y*cos(position_w)-delta_x*sin(position_w));
             delta_distance = len(dir_x,dir_y);
+            
             dir_x = dir_x/delta_distance;
             dir_y = dir_y/delta_distance;
-            accel_x = dir_x*acceleration;
-            accel_y = dir_y*acceleration;
-            vel_msg.linear.x -= accel_x;
-            vel_msg.linear.y -= accel_y;
+            vel_msg.linear.x = delta_distance*kp*dir_x;
+            vel_msg.linear.y = delta_distance*kp*dir_y;
+            // accel_x = dir_x*acceleration;
+            // accel_y = dir_y*acceleration;
+            // vel_msg.linear.x -= accel_x;
+            // vel_msg.linear.y -= accel_y;
             
             now_vel = len(vel_msg.linear.x,vel_msg.linear.y);
             std::cout<<"now_vel = "<<now_vel<<" \n";

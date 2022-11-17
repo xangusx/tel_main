@@ -7,19 +7,19 @@ int ScaraTake(int which)
 
     if(which == 0)
     {
-        numberofsquare = detect_square(); 
+        open_camera(); 
     }
     else
     {
-        for(int i=0;i<numberofsquare;i++)
+        for(int i=0;i<3;i++)
             // trans(x,y,which);
             x = x;
     }
     
 
-    for(int i=0;i<numberofsquare;i++)
+    for(int i=0;i<3;i++)
     {
-        x, y = square_coord(i-1);
+        x, y = coords_array(i-1);
         t = check_boundary(x,y);
         if(next_state<t)
             next_state = t;
@@ -42,6 +42,7 @@ int check_boundary(float x,float y)
 // initialization : state = 0
 // which square : state = 1:3
 // put off square : state = 4
+// just move : state = 5
 bool Scara_move(float x,float y,float state,bool first_state)
 {
     ros::NodeHandle nh;

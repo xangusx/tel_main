@@ -1,4 +1,5 @@
 <launch>
     <node name= "reset_node" pkg="race" type="reset" output="screen" respawn="true"/>
-    <node name= "strategy" pkg="race" type="main" output="screen" respawn="true" respawn_delay=”3”/>
+    <node name= "strategy" pkg="race" type="main" output="screen" respawn="true" />
+    <node pkg="ekf_odom" type="wheel_odom" name="wheel_odom" output="screen" respawn="true" />
 </launch>
