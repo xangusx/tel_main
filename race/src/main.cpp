@@ -19,21 +19,26 @@ int main(int argc, char **argv)
             first_move(60);
             // odom_init(0,0,0);
             first();
+<<<<<<< HEAD
             // second();
             // third();
+=======
+            second();
+            third();
+>>>>>>> 799dad5cf811796f0bb9ea11293c7843903f6702
             break;
         }
         else if (reset_state == 2)
         {
-            // first_move(60);
+            first_move(60);
             // odom_init(0,0,0);
             second();
-            // third();
+            third();
             break;
         }
         else if (reset_state == 3)
         {
-            // first_move(60);
+            first_move(60);
             // odom_init(0,0,0);
             third();
             break;
