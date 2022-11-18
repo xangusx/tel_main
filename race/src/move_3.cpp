@@ -27,9 +27,10 @@ void move_3(){
     while(ros::ok()){
         
         ros::spinOnce();
+        std::cout << "00" << "\n";
 
         if(state==1){
-
+            std::cout << "11" << "\n";
             Max_speed_3 = -Max_speed_3;
             accel_3 = -accel_3;
 
@@ -49,10 +50,11 @@ void move_3(){
                 }
                 Move_3_pub.publish(vel_3);
                 rate.sleep();            
-                }
+            }
+            break;
         }        
         else if(state == 2){
-
+            std::cout << "22" << "\n";
             while(ros::ok()){
                 ros::spinOnce();
                 if(state == 0){
@@ -70,8 +72,7 @@ void move_3(){
                 Move_3_pub.publish(vel_3);       
                 rate.sleep();     
             }
-        
+            break;
         }
-
     }
 }

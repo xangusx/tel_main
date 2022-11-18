@@ -20,9 +20,9 @@ geometry_msgs::Point angle_1;
 geometry_msgs::Twist imu_vel;
 
 float accel_p_c = 0.2;
-float accel_n_c = 0.1;
+float accel_n_c = 0.2;
 float accel_spin;
-float Maxvel_climb = 2.5;
+float Maxvel_climb = 2;
 float Maxvel_spin;
 float Minvel_spin;
 float imu_yaw_init;
