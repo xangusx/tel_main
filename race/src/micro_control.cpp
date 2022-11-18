@@ -5,7 +5,11 @@ void micro_move(float x,float y,float w,float vel_x,float vel_y)
     ros::NodeHandle nh;
     micro_sub = nh.subscribe("switch_inform", 1, micro_callback);
     ros::Rate rate(10);
-    
+    for(int i=0;i<4;i++)
+        micro_state[i] = 0;
+    left_state = false;
+    front_state = false;
+
     while(ros::ok())
     {
         ros::spinOnce();

@@ -37,7 +37,10 @@ void move_3(){
                 ros::spinOnce();
                 if(state == 0){
                     vel_3.linear.y = 0;
-                    Move_3_pub.publish(vel_3);
+                    for(int i=0;i<100;i++){
+                        Move_3_pub.publish(vel_3);
+                        rate.sleep();
+                    }
                     break;
                 }else if(vel_3.linear.y > Max_speed_3){
                     vel_3.linear.y += accel_3;
@@ -54,7 +57,10 @@ void move_3(){
                 ros::spinOnce();
                 if(state == 0){
                     vel_3.linear.y = 0;
-                    Move_3_pub.publish(vel_3);
+                    for(int i=0;i<100;i++){
+                        Move_3_pub.publish(vel_3);
+                        rate.sleep();
+                    }
                     break;
                 }else if(vel_3.linear.y < Max_speed_3){
                     vel_3.linear.y += accel_3;
@@ -67,8 +73,5 @@ void move_3(){
         
         }
 
-        
-
-        break;
     }
 }
