@@ -22,7 +22,7 @@ void move_3(){
     
     Move_3_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel",1);
     vl53_3_sub = nh.subscribe("tof_data", 1, callbackfunc);
-    ros::Rate rate(100);
+    ros::Rate rate(20);
 
     while(ros::ok()){
         
