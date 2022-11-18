@@ -27,7 +27,7 @@ void imu_climb(){
 
         imu_yaw_init = angle.z;
 
-        while(angle_1.x >= plane_angle && ros::ok()){   //平地前進(到上坡前)
+        while(angle_1.x >= (plane_angle-1) && ros::ok()){   //平地前進(到上坡前)
             ros::spinOnce();
             if(imu_vel.linear.x >= Maxvel_climb){
                 imu_vel.linear.x = Maxvel_climb;
@@ -47,23 +47,23 @@ void imu_climb(){
             rate.sleep();
         }
 
-        while(angle_1.x >= plane_angle && ros::ok()){   //煞車
+        while(angle_1.x >= plane_angle-3 && ros::ok()){   //煞車
             ros::spinOnce();
-            if(imu_vel.linear.x <= 0){
+            if(imu_vel.linear.x >= 0){
                 imu_vel.linear.x =0;
                 for(int i = 0;i<100;i++){
                     imu_vel_pub.publish(imu_vel);
-                    std::cout << "3" << "\n";
+                    std::cout << "4" << "\n";
                     rate.sleep();
                 }
-                
-                // break;
+                break;
             }else{
                 imu_vel.linear.x -=accel_n_c;
+                imu_vel_pub.publish(imu_vel);
+                std::cout << "4" << "\n";
+                rate.sleep();
             }    
-            imu_vel_pub.publish(imu_vel);
-            std::cout << "4" << "\n";
-            rate.sleep();
+            
         }
         break;
     }
