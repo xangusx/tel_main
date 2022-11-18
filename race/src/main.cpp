@@ -20,20 +20,20 @@ int main(int argc, char **argv)
             // odom_init(0,0,0);
             first();
             second();
-            // third();
+            third();
             break;
         }
         else if (reset_state == 2)
         {
-            // first_move(60);
+            first_move(60);
             // odom_init(0,0,0);
             second();
-            // third();
+            third();
             break;
         }
         else if (reset_state == 3)
         {
-            // first_move(60);
+            first_move(60);
             // odom_init(0,0,0);
             third();
             break;
