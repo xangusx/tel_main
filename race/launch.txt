@@ -1,0 +1,16 @@
+first half
+## roscore
+## rosrun rosserial_python serial_node.py
+## rosparam set reset_state 0
+## roslaunch race main.launch
+    rosrun ekf_odom wheel_odom
+    rosrun race reset_node
+    rosrun race main
+    rosrun vl53
+    rosrun imu
+
+second half
+## roscore
+## rosrun rosserial_python serial_node.py
+## rosrun rosserial_python serial_node_1.py
+## rosrun remote_control remote

@@ -33,9 +33,9 @@ void car_vel_callback(const geometry_msgs::Twist::ConstPtr& vel_data)
 
 void scara_callback(const geometry_msgs::Point::ConstPtr& scara_data)
 {
-    scara_msg.x = scara_data->x;
-    scara_msg.y = scara_data->y;
-    scara_msg.z = scara_data->z;
+    scara_msg.x = scara_data->x*-1;
+    scara_msg.y = scara_data->y*-1;
+    scara_msg.z = scara_data->z*-1;
 
 }
 

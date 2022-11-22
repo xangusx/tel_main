@@ -8,6 +8,7 @@ int ScaraTake(int which)
     if(which == 0)
     {
         open_camera(); 
+        std::cout<<"open over\n";
     }
     else
     {
@@ -24,16 +25,16 @@ int ScaraTake(int which)
         if(next_state<t)
             next_state = t;
 
-        scara_first_state = Scara_move(x,y,0,scara_first_state);
+        scara_first_state = Scara_move(x,y,i+1,scara_first_state);
     }
     return next_state;     
 }
 
 int check_boundary(float x,float y)
 {
-    if(x>100||y>100)
+    if(y<27)
         return 1;//across
-    else if(x<20)
+    else if(y<15&&x<10||x>-10)
         return 2;//back
 }
 
@@ -80,9 +81,13 @@ bool Scara_move(float x,float y,float state,bool first_state)
         temp = 0;
         while(ros::ok())
         {
-            std::cout<<"finish\n";
+            std::cout<<feedback<<"\n";                                                                                                                                                                                              
             if(Scara_feedback()==1)
+            {
+                std::cout<<"scara move over\n";
                 break;
+            }
+                
         }
     }    
     return first_state;
