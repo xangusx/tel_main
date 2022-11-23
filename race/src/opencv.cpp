@@ -79,14 +79,14 @@ void getContours(Mat &imgDil, Mat &img, int& temp){
 			circle(img, (boundRect[i].tl() + boundRect[i].br()) / 2, 0, Scalar(0, 255, 255), 8);
 			//change to world coordinates	
 			if (objectType=="T" || objectType == "E" || objectType == "L") {
-				double imgx, imgy;
+				float imgx, imgy;
 				Point2i down = boundRect[i].tl();
 				Point2i up = boundRect[i].br();
 				imgx = (down.y+up.y)/2.;
 				imgy = (down.x+up.x)/2.;
 				int ymin = -1, ysubmin = -1;
 				int xmin = -1, xsubmin = -1;
-				double xtrue=0, ytrue=0;
+				float xtrue=0, ytrue=0;
 				int t=0;
 				int Minimum_distance_y = 100;
 				int Minimum_distance_x = 100;
@@ -221,8 +221,8 @@ void getContours(Mat &imgDil, Mat &img, int& temp){
 					std::cout << "(" << aa[i].x << "," << aa[i].y << ")" << "\n";
 				}
 				std::cout << "\n";
-				double dis = 0.0;
-				double mindis = 10000.0;
+				float dis = 0.0;
+				float mindis = 10000.0;
 				for (int i = 0; i < m; i++) {
 					dis = sqrt(pow(imgx - aa[i].x, 2.0) + pow(imgy - aa[i].y, 2.0));
 					if (dis < mindis) {
@@ -255,7 +255,7 @@ void getContours(Mat &imgDil, Mat &img, int& temp){
 				/*printf("%lf,%lf\n,%lf,%lf\n,%lf,%lf\n,%lf,%lf\n", (xmin * 1.5 - 27)* (-1), (ymin * 1.5 - 51)* (-1), (xmin * 1.5 - 27)* (-1), (ysubmin * 1.5 - 51)* (-1), (xsubmin * 1.5 - 27)* (-1), (ymin * 1.5 - 51)* (-1),(xsubmin*1.5-27)*(-1), (ysubmin * 1.5 - 51)* (-1));*/
 					if (xmin != xsubmin) 
 						//xtrue = (xmin * 1.5 - 27 + /*((1.5 * abs(imgx - x[xmin][ymin])) / (abs(x[xmin][ymin] - x[xsubmin][ymin])))*/) * (-1);
-						xtrue = (1.5 * (((imgx - x[xmin][ymin]) * (xsubmin - xmin)) / (x[xsubmin][ymin] - x[xmin][ymin]) + xmin) - 27.) * (-1)*0.75;
+						xtrue = (1.5 * (((imgx - x[xmin][ymin]) * (xsubmin - xmin)) / (x[xsubmin][ymin] - x[xmin][ymin]) + xmin) - 27.) * (-1)*0.74;
 					else
 						xtrue = (-1) * (xmin * 1.5 - 27.);
 					if (ymin != ysubmin) 
@@ -361,14 +361,19 @@ int  open_camera() {
 	return 0;
 }
 
-float coords_array(int n,int clear)
+coord coords_array(int n,int clear)
 {	
+	coord re;
 	if(clear==0){
-		return square_coord[n][0],square_coord[n][1];
+		re.x = square_coord[n][0];
+		re.y = square_coord[n][1];
+		return re;
 	}
 	else if(clear==1){
 		square_coord[n][0] = 0;
 		square_coord[n][1] = 0;
-		return 0,0;
+		re.x = 0;
+		re.y = 0;
+		return re;
 	}
 }

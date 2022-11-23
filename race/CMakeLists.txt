@@ -214,6 +214,10 @@ add_library(move_3 src/move_3.cpp)
 target_link_libraries(move_3 ${catkin_LIBRARIES})
 add_dependencies(move_3 ${catkin_EXPORTED_TARGETS})
 
+# add_executable(color_cover src/color_cover.cpp)
+# target_link_libraries(color_cover ${catkin_LIBRARIES})
+# add_dependencies(color_cover ${catkin_EXPORTED_TARGETS})
+
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
 ## target back to the shorter version for ease of user use

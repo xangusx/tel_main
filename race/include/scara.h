@@ -14,6 +14,11 @@ bool scara_first_state = true;
 int next_state = 0;
 float back_distance = 15;
 
+// typedef struct {
+// 	double x;
+// 	double y;
+// }target;
+
 int ScaraTake(int which);
 bool Scara_move(float x,float y,float state,bool first_state);
 // bool Scara_feedback();

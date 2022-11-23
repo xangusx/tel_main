@@ -4,11 +4,12 @@
 #include <opencv2/opencv.hpp>
 #include <iostream>
 #include <string.h>
+#include <tuple> 
 
 using namespace cv;
 using namespace std;
 
-double square_coord[3][2] = { 0 };
+float square_coord[3][2] = { 0 };
 
 typedef struct {
 	double x;
@@ -18,7 +19,7 @@ typedef struct {
 int getContours2(Mat& imgDil, Mat& img);
 void getContours(Mat &imgDil, Mat &img, int& temp);
 int open_camera();
-float coords_array(int n,int clear);
+coord coords_array(int n,int clear);
 
 
 #endif
