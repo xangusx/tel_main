@@ -24,6 +24,7 @@ void first()
     MoveTo(50,0,0.5,0.04);
     MoveTo(50,30,0.5,0.04);
     MoveTo(94,30,0.5,0.04);
+    
     // first_state = Scara_move(0,29,5,first_state);
     // int ch = 0;
     // ch = ScaraTake(ch);
