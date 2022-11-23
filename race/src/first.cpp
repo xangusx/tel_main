@@ -3,11 +3,47 @@
 void first()
 {
     first_state = Scara_move(0,0,0,first_state);
-    // first_state = Scara_move(-8,22,5,first_state);
     first_state = Scara_move(0,29,5,first_state);
     std::cout<<"first move\n";
-    int ch = 0;
-    ch = ScaraTake(ch);
+    int steps = 0;
+    steps = ScaraTake(steps);
+    if(steps==0){
+        // put off
+        first_state = Scara_move(29,0,4,first_state);
+    }
+    else if(steps==2){
+        // back
+        // MoveTo(0,0,0,0.5,0.01);
+        steps = ScaraTake(steps);
+        if(steps==0){
+            // put off
+            // MoveTo(0,0,0,0.5,0.01);
+            first_state = Scara_move(29,0,4,first_state);
+        }
+        else if(steps==1)//across
+        {
+            // MoveTo(0,0,0,0.5,0.01);
+            steps = ScaraTake(steps);
+            // MoveTo(0,0,0,0.5,0.01);
+            first_state = Scara_move(29,0,4,first_state);
+        }
+    }
+    else if(steps==1){
+        // across
+        // MoveTo(0,0,0,0.5,0.01);
+        steps = ScaraTake(steps);
+        if(steps==0){
+            // MoveTo(0,0,0,0.5,0.01);
+            first_state = Scara_move(29,0,4,first_state);
+        }
+        else if(steps==2){
+            // back
+            // MoveTo(0,0,0,0.5,0.01);
+            steps = ScaraTake(steps);
+            // MoveTo(0,0,0,0.5,0.01);
+            first_state = Scara_move(29,0,4,first_state);
+        }
+    }
     // ------------------------------------
     // MoveTo(100,0,0.5,0.04);
     // MoveTo(0,-10,0.5,0.04);

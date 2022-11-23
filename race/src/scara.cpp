@@ -9,30 +9,105 @@ int ScaraTake(int which)
     {
         open_camera(); 
         std::cout<<"open over\n";
-    }
-    else
-    {
-        for(int i=0;i<3;i++)
-            // trans(x,y,which);
-            x = x;
-    }
-    
 
-    for(int i=0;i<3;i++)
-    {
-        x, y = coords_array(i-1);
-        t = check_boundary(x,y);
-        if(t==0)
+        for(int i=0;i<3;i++)
         {
-            scara_first_state = Scara_move(x,y,i+1,scara_first_state);
+            x, y = coords_array(i-1,0);
+            if(x==0&&y==0){
+                std::cout<<i<<" is (0,0)\n";
+                continue;
+            }
+            else{
+                t = check_boundary(x,y);
+                if(t==0){
+                    scara_first_state = Scara_move(x,y,i+1,scara_first_state);
+                    x, y = coords_array(i-1,1);
+                    NumberOfSquare--;
+                    if(NumberOfSquare==0){
+                        next_state = 0;
+                        return next_state;
+                        // put off
+                    }
+                }
+                else if(next_state<t){
+                    next_state=t;
+                }
+            }
         }
-        if(next_state==t)
-        {
-            next_state = t;
+    }
+
+    else if(which == 2)
+    {
+        for(int i=0;i<3;i++){
+            x, y = coords_array(i-1,0);
+            if(x==0&&y==0){
+                std::cout<<i<<" is (0,0)\n";
+                continue;
+            }
+            t = check_boundary(x,y+back_distance);
+            if(t==0){
+                scara_first_state = Scara_move(x,y,3-NumberOfSquare+1,scara_first_state);
+                x, y = coords_array(i-1,1);
+                NumberOfSquare--;
+                if(NumberOfSquare==0){
+                    next_state = 0;
+                    return next_state;
+                    // put off
+                } 
+            }
+            else{
+                next_state = 1;
+            }
         }
         
     }
-    return next_state;     
+
+    else if(which==1)
+    {
+        open_camera(); 
+        std::cout<<"open over\n";
+        for(int i=0;i<3;i++)
+        {
+            x, y = coords_array(i-1,0);
+            if(x==0&&y==0){
+                std::cout<<i<<" is (0,0)\n";
+                continue;
+            }
+            else{
+                t = check_boundary(x,y);
+                if(t==0){
+                    scara_first_state = Scara_move(x,y,i+1,scara_first_state);
+                    x, y = coords_array(i-1,1);
+                    NumberOfSquare--;
+                    if(NumberOfSquare==0){
+                        next_state = 0;
+                        return next_state;
+                        // put off
+                    }
+                }
+                else{
+                    next_state=2;
+                }
+            }
+        }
+    }
+    return next_state;
+
+    // for(int i=0;i<3;i++)
+    // {
+    //     x, y = coords_array(i-1);
+    //     t = check_boundary(x,y);
+    //     if(t==0)
+    //     {
+    //         scara_first_state = Scara_move(x,y,i+1,scara_first_state);
+    //     }
+    //     if(next_state==t)
+    //     {
+    //         next_state = t;
+    //     }
+        
+    // }
+    // return next_state;     
 }
 
 int check_boundary(float x,float y)
@@ -43,7 +118,7 @@ int check_boundary(float x,float y)
     else if(y<15&&x<10||x>-10){
         return 2;//back
     }
-    else{
+    else{//can do
         return 0;
     }
 }
@@ -57,6 +132,7 @@ int check_boundary(float x,float y)
 bool Scara_move(float x,float y,float state,bool first_state)
 {
     ros::NodeHandle nh;
+    scara_feedback_sub = nh.subscribe("scara_feedback", 1, scara_feedback_callback);
     scara_pub = nh.advertise<geometry_msgs::Point>("Destination",1);
     int r = 10;
     ros::Rate rate(r);
@@ -77,41 +153,43 @@ bool Scara_move(float x,float y,float state,bool first_state)
         first_state = false;
         scara_first_state = false;
     }
-    
     else if(ros::ok())
     {
         int temp = 0;
         do
         {
             scara_pub.publish(point);
-            std::cout<<"doing...\n";
-            std::cout<<"("<<point.x<<", "<<point.y<<")\n";
-            if (Scara_feedback()==0)
+            std::cout<<"pub point ("<<point.x<<", "<<point.y<<")\n";
+            ros::spinOnce();
+            if (feedback==0){
                 temp++;
+            }
+            rate.sleep();
         }while(ros::ok()&&temp==0);
         temp = 0;
         while(ros::ok())
         {
-            std::cout<<feedback<<"\n";                                                                                                                                                                                              
-            if(Scara_feedback()==1)
+            std::cout<<"doing\n";
+            ros::spinOnce();                                                                                                                                                                                              
+            if(feedback==1)
             {
                 std::cout<<"scara move over\n";
                 break;
-            }
-                
+            } 
+            rate.sleep();    
         }
     }    
     return first_state;
 }
 
-bool Scara_feedback()
-{
-    ros::NodeHandle nh;
-    scara_feedback_sub = nh.subscribe("scara_feedback", 1, scara_feedback_callback);
-    ros::spinOnce();
+// bool Scara_feedback()
+// {
+//     ros::NodeHandle nh;
+//     scara_feedback_sub = nh.subscribe("scara_feedback", 1, scara_feedback_callback);
+//     ros::spinOnce();
 
-    return feedback;
-}
+//     return feedback;
+// }
 
 void scara_feedback_callback(const std_msgs::Int64::ConstPtr& scara_feedback_msg)
 {

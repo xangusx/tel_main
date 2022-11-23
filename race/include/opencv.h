@@ -18,7 +18,7 @@ typedef struct {
 int getContours2(Mat& imgDil, Mat& img);
 void getContours(Mat &imgDil, Mat &img, int& temp);
 int open_camera();
-float coords_array(int n);
+float coords_array(int n,int clear);
 
 
 #endif

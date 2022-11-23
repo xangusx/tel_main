@@ -361,7 +361,14 @@ int  open_camera() {
 	return 0;
 }
 
-float coords_array(int n)
-{
-    return square_coord[n][0],square_coord[n][1];
+float coords_array(int n,int clear)
+{	
+	if(clear==0){
+		return square_coord[n][0],square_coord[n][1];
+	}
+	else if(clear==1){
+		square_coord[n][0] = 0;
+		square_coord[n][1] = 0;
+		return 0,0;
+	}
 }
