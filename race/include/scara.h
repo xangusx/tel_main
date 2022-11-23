@@ -8,7 +8,7 @@
 
 ros::Publisher scara_pub;
 ros::Subscriber scara_feedback_sub;
-// int remainder = 3;
+int remainder = 3;
 int numberofsquare;
 int feedback = 0;
 bool scara_first_state = true;

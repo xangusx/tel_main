@@ -280,11 +280,11 @@ void getContours(Mat &imgDil, Mat &img, int& temp){
 			}
 		}
 	}
-	imshow("Image", img);
+	// imshow("Image", img);
 }
 
 int  open_camera() {
-	VideoCapture cap(1);
+	VideoCapture cap(0);
 
 	if (!cap.isOpened()) {
 		cout << "Camera not found" << endl;
@@ -340,8 +340,8 @@ int  open_camera() {
 	}
 	//string path = "Resources/shape.jpg";
 	//Mat img = imread(path);
-	Mat imgResize;
-	resize(img, imgResize, Size(), 0.5, 0.5);
+	// Mat imgResize;
+	// resize(img, imgResize, Size(), 0.5, 0.5);
 	//Mat imgGray, imgBlur, imgCanny, imgDil, imgErode;
 	// Preprocessing
 	//cvtColor(img, imgGray, COLOR_BGR2GRAY);
@@ -357,7 +357,7 @@ int  open_camera() {
 	//imshow("Image Blur", imgBlur);
 	//imshow("Image Canny", imgCanny);
 	//imshow("Image Dil", imgDil);
-	waitKey(0);
+	// waitKey(0);
 	return 0;
 }
 

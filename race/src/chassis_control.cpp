@@ -318,6 +318,7 @@ void turn(float target_w,float middle_w,float max_angular_vel,float angular_acce
         ros::spinOnce();
         vel_msg.angular.z = dir_w*min_angular_vel;
         delta_rotation = target_w-position_w*180/PI;
+        dir_w = delta_rotation/abs(delta_rotation);
         vel_pub.publish(vel_msg);
         std::cout<<"omega: "<<position_w*180/PI<<"\n";
         std::cout<<"delta_rotation: "<<delta_rotation<<"\n";

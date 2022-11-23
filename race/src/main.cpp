@@ -16,11 +16,10 @@ int main(int argc, char **argv)
         // odom_init(30,0,0);
         if(reset_state == 1||reset_state == 0)
         {
-            first_move(60);
-            // odom_init(0,0,0);
+            // first_move(60);
             first();
-            second();
-            third();
+            // second();
+            // third();
             break;
         }
         else if (reset_state == 2)
