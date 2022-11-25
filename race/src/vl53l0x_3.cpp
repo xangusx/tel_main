@@ -45,7 +45,7 @@ void vl53l0x_climb(){
 
         ros::spinOnce();
 
-        while(vl53l0x[0] >= stop_distance && ros::ok()){   //平地前進(到上坡前)
+        while(vl53l0x[0] >= stop_distance_climb && ros::ok()){   //平地前進(到上坡前)
             ros::spinOnce();
             if(vl53_vel.linear.x >= Maxvel_3){
                 vl53_vel.linear.x = Maxvel_3;
@@ -57,7 +57,7 @@ void vl53l0x_climb(){
             rate.sleep();
         }
 
-        while(vl53l0x[0] <= stop_distance && ros::ok()){   //衝上上坡
+        while(vl53l0x[0] <= stop_distance_climb && ros::ok()){   //衝上上坡
             ros::spinOnce(); 
             vl53_vel.linear.x = Maxvel_3;
             vl53l0x_vel_pub.publish(vl53_vel);
@@ -65,7 +65,7 @@ void vl53l0x_climb(){
             rate.sleep();
         }
 
-        while(vl53l0x[0] >= stop_distance && ros::ok()){   //煞車
+        while(vl53l0x[0] >= stop_distance_climb && ros::ok()){   //煞車
             ros::spinOnce();
             if(vl53_vel.linear.x <= 0){
                 vl53_vel.linear.x =0;
@@ -85,6 +85,60 @@ void vl53l0x_climb(){
         }
         break;
     }
+    vl53l0x_downhill();
+
+}
+
+void vl53l0x_downhill(){
+    
+    ros::Rate rate(20);
+
+    while(ros::ok()){
+        if(vl53l0x[0] <= (stop_distance_climb + 5) && vl53l0x[1] <= (stop_distance_climb + 5)){
+            vl53_vel.linear.y = -constvel;
+            vl53l0x_vel_pub.publish(vl53_vel);
+            rate.sleep();
+        }else{
+            vl53_vel.linear.y = 0;
+            for(int i=0;i<100;i++){
+                vl53l0x_vel_pub.publish(vl53_vel);
+                rate.sleep();
+            }
+            break;
+        }
+    }
+
+    while(ros::ok()){
+
+        if(vl53l0x[0] <= (stop_distance_1)){
+            vl53_vel.linear.x = constvel;
+            vl53l0x_vel_pub.publish(vl53_vel);
+            rate.sleep();
+        }else{
+            vl53_vel.linear.x = 0;
+            for(int i=0;i<100;i++){
+                vl53l0x_vel_pub.publish(vl53_vel);
+                rate.sleep();
+            }
+            break;
+        }
+    }
+    while(ros::ok()){
+
+        if(vl53l0x[0] <= (stop_distance_2) && vl53l0x[1] <= (stop_distance_2)){
+            vl53_vel.linear.y = constvel;
+            vl53l0x_vel_pub.publish(vl53_vel);
+            rate.sleep();
+        }else{
+            vl53_vel.linear.y = 0;
+            for(int i=0;i<100;i++){
+                vl53l0x_vel_pub.publish(vl53_vel);
+                rate.sleep();
+            }
+            break;
+        }
+    }
+    
 
 }
 
