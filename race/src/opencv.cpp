@@ -175,8 +175,8 @@ void getContours(Mat &imgDil, Mat &img, int& temp){
 				int tmpj = 0;
 				coord aa[50];
 				
-				std::cout << "imgx:" << imgx << "\n";
-				std::cout << "imgy:" << imgy << "\n";
+				// std::cout << "imgx:" << imgx << "\n";
+				// std::cout << "imgy:" << imgy << "\n";
 
 				for (int i = 0; i < 37; i++) {
 					for (int j = 0; j < 35; j++) {
@@ -186,7 +186,7 @@ void getContours(Mat &imgDil, Mat &img, int& temp){
 						}
 					}
 				}
-				std::cout << "k(x):" << k << "\n";
+				// std::cout << "k(x):" << k << "\n";
 				//std::cout << x[tmpi][tmpj] << "\n";
 				
 
@@ -212,15 +212,15 @@ void getContours(Mat &imgDil, Mat &img, int& temp){
 					}
 				}
 				//std::cout << y[tmpi][tmpj] << "\n";
-				std::cout << "m(y):" << m << "\n";
+				// std::cout << "m(y):" << m << "\n";
 				for (int i = 0; i < k; i++) {
 					std::cout << xtemp[i] << " ";
 				}
-				std::cout << "\n";
+				// std::cout << "\n";
 				for (int i = 0; i < m; i++) {
 					std::cout << "(" << aa[i].x << "," << aa[i].y << ")" << "\n";
 				}
-				std::cout << "\n";
+				// std::cout << "\n";
 				float dis = 0.0;
 				float mindis = 10000.0;
 				for (int i = 0; i < m; i++) {
@@ -266,8 +266,9 @@ void getContours(Mat &imgDil, Mat &img, int& temp){
 			 //cout << imgx << " " << imgy<< " "  << endl;
 				//cout << xtrue << " " << ytrue << " " << objectType << endl;
 				if (objectType == "T") {
-					square_coord[0][0] = xtrue;
-					square_coord[0][1] = ytrue;
+					// if(find(xtrue,ytrue)){
+						square_coord[0][0] = xtrue;
+						square_coord[0][1] = ytrue;
 				}
 				else if (objectType == "E") {
 					square_coord[1][0] = xtrue;
@@ -288,7 +289,7 @@ int  open_camera() {
 
 	if (!cap.isOpened()) {
 		cout << "Camera not found" << endl;
-		return 0;
+		return 1;
 	}
 	int temp;
 	Mat img;

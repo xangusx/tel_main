@@ -18,8 +18,8 @@ int main(int argc, char **argv)
         {
             first_move(60);
             first();
-            second();
-            third();
+            // second();
+            // third();
             break;
         }
         else if (reset_state == 2)

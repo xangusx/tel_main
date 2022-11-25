@@ -97,7 +97,9 @@ int ScaraTake(int which)
 
     if(which==0)
     {
-        open_camera(); 
+        while(open_camera()){
+            std::cout<<"restart of open camera\n";
+        } 
         std::cout<<"open over\n";
         for(int i=0;i<3;i++)
         {

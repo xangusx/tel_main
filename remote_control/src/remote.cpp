@@ -12,6 +12,8 @@ int main(int argc, char **argv)
     scara_pub = nh.advertise<geometry_msgs::Point>("scara_move",1);
     pump_sub= nh.subscribe("pump_arduino_to_ros", 1, pump_callback);
     pump_pub = nh.advertise<geometry_msgs::Point>("cmd_pump",1);
+    other_sub = nh.subscribe("other_arduino_to_ros", 1, other_callback);
+    other_pub = nh.advertise<geometry_msgs::Point>("cmd_other",1);
 
     while(ros::ok())
     {
@@ -20,6 +22,7 @@ int main(int argc, char **argv)
         car_pub.publish(vel_msg);
         scara_pub.publish(scara_msg);
         pump_pub.publish(pump_msg);
+        other_pub.publish(other_msg);
         rate.sleep();
     }
 }
@@ -44,4 +47,10 @@ void pump_callback(const geometry_msgs::Point::ConstPtr& pump_data)
     pump_msg.x = pump_data->x;
     pump_msg.y = pump_data->y;
     pump_msg.z = pump_data->z;
+}
+
+void other_callback(const geometry_msgs::Point::ConstPtr& other_data)
+{
+    other_msg.x = other_data->x;
+    other_msg.y = other_data->y;
 }
