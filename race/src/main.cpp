@@ -17,9 +17,9 @@ int main(int argc, char **argv)
         if(reset_state == 1||reset_state == 0)
         {
             first_move(60);
-            first();
+            // first();
             // second();
-            // third();
+            third();
             break;
         }
         else if (reset_state == 2)

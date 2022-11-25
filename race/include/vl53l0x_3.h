@@ -20,10 +20,12 @@ void vl53l0x_downhill();
 float accel_p = 0.2;
 float accel_n = 0.2;
 float Maxvel_3 = 2;
-float stop_distance_climb = 10;
+float stop_distance_climb_1 = 60;
+float stop_distance_climb_2 = 15;
 float constvel = 0.5;
-float stop_distance_1 = 5;
-float stop_distance_2 = 5;
+float stop_distance_1 = 7;
+float stop_distance_2 = -100;
+int vl53l0x_is_ok;
 
 
 #endif

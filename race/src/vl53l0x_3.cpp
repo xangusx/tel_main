@@ -7,6 +7,12 @@ void callbackfunc(const std_msgs::Float64MultiArray::ConstPtr &msg){
     vl53l0x[2] = msg->data[2];
     vl53l0x[3] = msg->data[3];
 
+    if(vl53l0x[0]!=(-100)&&vl53l0x[1]!=(-100)){
+        vl53l0x_is_ok = 1;
+    }else{
+        vl53l0x_is_ok = 0;
+    }
+
 }
 
 // void vl53l0x_3(){
@@ -41,50 +47,51 @@ void vl53l0x_climb(){
     vl53l0x_vel_pub = nh.advertise<geometry_msgs::Twist>("vl53l0x_vel",1);
     ros::Rate rate(20);
 
-    while(ros::ok()){
+    // while(ros::ok()){
 
-        ros::spinOnce();
+    //     ros::spinOnce();
+    //     std::cout<<"000\n";
 
-        while(vl53l0x[0] >= stop_distance_climb && ros::ok()){   //平地前進(到上坡前)
-            ros::spinOnce();
-            if(vl53_vel.linear.x >= Maxvel_3){
-                vl53_vel.linear.x = Maxvel_3;
-            }else{
-                vl53_vel.linear.x += accel_p;
-            }           
-            vl53l0x_vel_pub.publish(vl53_vel);
-            std::cout << "1" << "\n";
-            rate.sleep();
-        }
+    //     while(vl53l0x[0] >= stop_distance_climb_1 && vl53l0x_is_ok && ros::ok()){   //平地前進(到上坡前)
+    //         ros::spinOnce();
+    //         if(vl53_vel.linear.x >= Maxvel_3){
+    //             vl53_vel.linear.x = Maxvel_3;
+    //         }else{
+    //             vl53_vel.linear.x += accel_p;
+    //         }           
+    //         vl53l0x_vel_pub.publish(vl53_vel);
+    //         std::cout << "1" << "\n";
+    //         rate.sleep();
+    //     }
 
-        while(vl53l0x[0] <= stop_distance_climb && ros::ok()){   //衝上上坡
-            ros::spinOnce(); 
-            vl53_vel.linear.x = Maxvel_3;
-            vl53l0x_vel_pub.publish(vl53_vel);
-            std::cout << "2" << "\n";
-            rate.sleep();
-        }
+    //     // while(vl53l0x[0] <= stop_distance_climb && ros::ok()){   //衝上上坡
+    //     //     ros::spinOnce(); 
+    //     //     vl53_vel.linear.x = Maxvel_3;
+    //     //     vl53l0x_vel_pub.publish(vl53_vel);
+    //     //     std::cout << "2" << "\n";
+    //     //     rate.sleep();
+    //     // }
 
-        while(vl53l0x[0] >= stop_distance_climb && ros::ok()){   //煞車
-            ros::spinOnce();
-            if(vl53_vel.linear.x <= 0){
-                vl53_vel.linear.x =0;
-                for(int i = 0;i<100;i++){
-                    vl53l0x_vel_pub.publish(vl53_vel);
-                    std::cout << "4" << "\n";
-                    rate.sleep();
-                }
-                break;
-            }else{
-                vl53_vel.linear.x -=accel_n;
-                vl53l0x_vel_pub.publish(vl53_vel);
-                std::cout << "3" << "\n";
-                rate.sleep();
-            }    
+    //     while(vl53l0x[0] >= stop_distance_climb_2 && vl53l0x_is_ok && ros::ok()){   //煞車
+    //         ros::spinOnce();
+    //         if(vl53_vel.linear.x <= 0){
+    //             vl53_vel.linear.x =0;
+    //             for(int i = 0;i<100;i++){
+    //                 vl53l0x_vel_pub.publish(vl53_vel);
+    //                 std::cout << "4" << "\n";
+    //                 rate.sleep();
+    //             }
+    //             break;
+    //         }else{
+    //             vl53_vel.linear.x -=accel_n;
+    //             vl53l0x_vel_pub.publish(vl53_vel);
+    //             std::cout << "3" << "\n";
+    //             rate.sleep();
+    //         }    
             
-        }
-        break;
-    }
+    //     }
+    //     break;
+    // }
     vl53l0x_downhill();
 
 }
@@ -93,8 +100,24 @@ void vl53l0x_downhill(){
     
     ros::Rate rate(20);
 
+    while(ros::ok()){ //上坡停
+        std::cout<<"000\n";
+        if(vl53l0x[0] >= stop_distance_climb_2 && vl53l0x_is_ok){
+            vl53_vel.linear.x = constvel;
+            vl53l0x_vel_pub.publish(vl53_vel);
+            rate.sleep();
+        }else{
+            vl53_vel.linear.x = 0;
+            for(int i=0;i<100;i++){
+                vl53l0x_vel_pub.publish(vl53_vel);
+                rate.sleep();
+            }
+            break;
+        }
+    }
+
     while(ros::ok()){ //向右
-        if(vl53l0x[0] <= (stop_distance_climb + 5) && vl53l0x[1] <= (stop_distance_climb + 5)){
+        if(vl53l0x[0] >= (stop_distance_climb_2 + 5) && vl53l0x[1] >= (stop_distance_climb_2 + 5) && vl53l0x_is_ok){
             vl53_vel.linear.y = -constvel;
             vl53l0x_vel_pub.publish(vl53_vel);
             rate.sleep();
@@ -110,7 +133,7 @@ void vl53l0x_downhill(){
 
     while(ros::ok()){ //向前
 
-        if(vl53l0x[0] <= (stop_distance_1)){
+        if(vl53l0x[0] >= (stop_distance_1)){
             vl53_vel.linear.x = constvel;
             vl53l0x_vel_pub.publish(vl53_vel);
             rate.sleep();
@@ -125,7 +148,7 @@ void vl53l0x_downhill(){
     }
     while(ros::ok()){ //向右
 
-        if(vl53l0x[0] <= (stop_distance_2) && vl53l0x[1] <= (stop_distance_2)){
+        if(vl53l0x[0] > (stop_distance_2) && vl53l0x[1] > (stop_distance_2)&& vl53l0x_is_ok){
             vl53_vel.linear.y = constvel;
             vl53l0x_vel_pub.publish(vl53_vel);
             rate.sleep();
