@@ -93,7 +93,7 @@ void vl53l0x_downhill(){
     
     ros::Rate rate(20);
 
-    while(ros::ok()){
+    while(ros::ok()){ //向右
         if(vl53l0x[0] <= (stop_distance_climb + 5) && vl53l0x[1] <= (stop_distance_climb + 5)){
             vl53_vel.linear.y = -constvel;
             vl53l0x_vel_pub.publish(vl53_vel);
@@ -108,7 +108,7 @@ void vl53l0x_downhill(){
         }
     }
 
-    while(ros::ok()){
+    while(ros::ok()){ //向前
 
         if(vl53l0x[0] <= (stop_distance_1)){
             vl53_vel.linear.x = constvel;
@@ -123,7 +123,7 @@ void vl53l0x_downhill(){
             break;
         }
     }
-    while(ros::ok()){
+    while(ros::ok()){ //向右
 
         if(vl53l0x[0] <= (stop_distance_2) && vl53l0x[1] <= (stop_distance_2)){
             vl53_vel.linear.y = constvel;
