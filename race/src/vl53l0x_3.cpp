@@ -48,7 +48,7 @@ void vl53l0x_downhill(){
     ros::Rate rate(20);
 
     while(ros::ok()){ //上坡距離校正
-        std::cout<<"000\n";
+        std::cout<<"downhill_stop\n";
         ros::spinOnce();
         if(vl53l0x[0] >= stop_distance_climb_2 && vl53l0x_is_ok){
             vl53_vel.linear.x = constvel;

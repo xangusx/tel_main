@@ -74,7 +74,7 @@ void imu_climb(){
 }
 
 void imu_rotate(float imu_yaw_init){
-    
+
     ros::NodeHandle nh;
     
     imu_vel_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel",1);
@@ -94,6 +94,7 @@ void imu_rotate(float imu_yaw_init){
     
     while(ros::ok() && fabs(angle_1.z-imu_yaw_init)>fabs(0.5*angle_diff)){
         ros::spinOnce();
+        std::cout << "imu_rotate_1" << "\n";
         if(fabs(imu_vel.angular.z) < fabs(Maxvel_spin)){
             imu_vel.angular.z += accel_spin;
         }else if(fabs(imu_vel.angular.z) >= fabs(Maxvel_spin)){
@@ -101,7 +102,6 @@ void imu_rotate(float imu_yaw_init){
         }
         imu_vel_pub.publish(imu_vel);
         rate.sleep();
-        std::cout << "1" << "\n";
     }
 
     while(ros::ok() && fabs(angle_1.z-imu_yaw_init)<=fabs(0.5*angle_diff)){
@@ -111,7 +111,7 @@ void imu_rotate(float imu_yaw_init){
             for(int i = 0;i<100;i++){
                 imu_vel_pub.publish(imu_vel);
                 rate.sleep();
-                std::cout << "3" << "\n";
+                std::cout << "imu_rotate_3" << "\n";
             }
             break;
         }else{
@@ -121,7 +121,7 @@ void imu_rotate(float imu_yaw_init){
                 imu_vel.angular.z = Minvel_spin;
             }
             imu_vel_pub.publish(imu_vel);
-            std::cout << "2" << "\n";
+            std::cout << "imu_rotate_2" << "\n";
             rate.sleep();
         }
     }
