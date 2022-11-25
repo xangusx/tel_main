@@ -30,5 +30,5 @@ void third()
     MoveTo(0,20,1,0.06);  
     MoveTo(200,20,2,0.2);
     imu_rotate(0);
-    vl53l0x_downhill();
+    move_3();
 }
