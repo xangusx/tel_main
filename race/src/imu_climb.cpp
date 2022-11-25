@@ -74,6 +74,12 @@ void imu_climb(){
 }
 
 void imu_rotate(float imu_yaw_init){
+    
+    ros::NodeHandle nh;
+    
+    imu_vel_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel",1);
+    imu_sub_3 = nh.subscribe("imu_angle", 1, imu_callback);
+    imu_sub_1 = nh.subscribe("imu_angular", 1, imu_1_callback);
 
     ros::spinOnce();
     ros::Rate rate(20);

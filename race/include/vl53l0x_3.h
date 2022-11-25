@@ -14,14 +14,13 @@ ros::Publisher vl53l0x_pub_1;
 ros::Publisher vl53l0x_vel_pub;
 
 void vl53l0x_3();
-void vl53l0x_climb();
 void vl53l0x_downhill();
 
 float accel_p = 0.2;
 float accel_n = 0.2;
 float Maxvel_3 = 2;
 float stop_distance_climb_1 = 60;
-float stop_distance_climb_2 = 15;
+float stop_distance_climb_2 = 10;
 float constvel = 0.5;
 float stop_distance_1 = 7;
 float stop_distance_2 = -100;
