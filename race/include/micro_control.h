@@ -8,6 +8,7 @@
 #include <geometry_msgs/Twist.h>
 
 ros::Subscriber micro_sub;
+ros::Publisher micro_pub;
 geometry_msgs::Twist micro_vel;
 
 int micro_state[4];

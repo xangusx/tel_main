@@ -156,7 +156,7 @@ bool Scara_move(float x,float y,float state,bool first_state)
     //first connect
     if(first_state&&ros::ok())
     {
-        for(int i=0;i<(5*r);i++)
+        for(int i=0;i<(3.2*r);i++)
         {
             std::cout<<i<<"\n";
             scara_pub.publish(point);

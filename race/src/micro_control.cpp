@@ -76,15 +76,12 @@ void micro_control_level_3(){
             rate.sleep();
         }else{
             micro_vel.linear.x = 0;
-            for(int i=0;i<100;i++){
+            for(int i=0;i<50;i++){
                 micro_pub.publish(micro_vel);
+                std::cout << "vel = 0\n";
                 rate.sleep();
             }
             break;
         }
     }
-    // odom_init();
-
-    //MoveTo();
-
 }

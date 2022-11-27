@@ -85,9 +85,9 @@ void first()
     first_state = Scara_move(0,0,0,first_state);    
     // Scara_move(0,29.0832266,0);
     first_state = Scara_move(0,29.0832,5,first_state);
-    first_state = Scara_move(-8,22,1,first_state);
+    first_state = Scara_move(-6,25,1,first_state);
     first_state = Scara_move(0,29,2,first_state);
-    first_state = Scara_move(8,22,3,first_state);
+    first_state = Scara_move(6,25,3,first_state);
     first_state = Scara_move(0,29,4,first_state);
     first_state = Scara_move(0,0,0,first_state);   
 

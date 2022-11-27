@@ -80,17 +80,31 @@ void imu_rotate(float imu_yaw_init){
     imu_vel_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel",1);
     imu_sub_3 = nh.subscribe("imu_angle", 1, imu_callback);
     imu_sub_1 = nh.subscribe("imu_angular", 1, imu_1_callback);
-
-    ros::spinOnce();
     ros::Rate rate(20);
+
+    while(angle_1.z == 0){
+        ros::spinOnce();
+        rate.sleep();
+    }
+
     angle_diff = angle_1.z - imu_yaw_init;
-    Maxvel_spin = angle_diff*-0.0001;
-    accel_spin = Maxvel_spin*-0.1;
     Minvel_spin = -0.01;
     if(angle_diff < 0){
         angle_diff = -angle_diff;
         Minvel_spin = 0.01;
+        Maxvel_spin = angle_diff*0.0001;
+        if(Maxvel_spin<Minvel_spin){
+            Maxvel_spin = Minvel_spin;
+        }
+        accel_spin = Maxvel_spin*-0.1;
+    }else{
+        Maxvel_spin = angle_diff*-0.0001;
+        if(Maxvel_spin>Minvel_spin){
+            Maxvel_spin = Minvel_spin;
+        }
+        accel_spin = Maxvel_spin*0.1;
     }
+    std::cout << angle_1.z << "\n";
     
     while(ros::ok() && fabs(angle_1.z-imu_yaw_init)>fabs(0.5*angle_diff)){
         ros::spinOnce();

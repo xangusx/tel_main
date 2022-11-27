@@ -44,42 +44,49 @@ void vl53l0x_downhill(){
     ros::NodeHandle nh;
     vl53l0x_sub_3 = nh.subscribe("tof_data", 1, callbackfunc);
     // vl53l0x_pub_1 = nh.advertise<std_msgs::Int64>("vl53_3",1);
-    vl53l0x_vel_pub = nh.advertise<geometry_msgs::Twist>("vl53l0x_vel",1);
+    vl53l0x_vel_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel",1);
     ros::Rate rate(20);
 
+    while(vl53l0x[0]==0){
+            ros::spinOnce();
+            rate.sleep();
+    }
+
     while(ros::ok()){ //上坡距離校正
-        std::cout<<"downhill_stop\n";
         ros::spinOnce();
-        if(vl53l0x[0] >= stop_distance_climb_2 && vl53l0x_is_ok){
+        std::cout << vl53l0x[0] <<"\n";
+        if(vl53l0x[0] >= stop_distance_climb_2 ){
+            std::cout << vl53_vel.linear.x << "\n";
             vl53_vel.linear.x = constvel;
             vl53l0x_vel_pub.publish(vl53_vel);
             rate.sleep();
-        }else{
+        }else {
             vl53_vel.linear.x = 0;
-            for(int i=0;i<100;i++){
+            for(int i=0;i<50;i++){
                 vl53l0x_vel_pub.publish(vl53_vel);
+                std::cout << vl53l0x[0] <<"\n";
                 rate.sleep();
             }
             break;
         }
     }
 
-    while(ros::ok()){ //向右
-        std::cout<<"111\n";
-        ros::spinOnce();
-        if(vl53l0x[0] <= (stop_distance_climb_2 + 10) && vl53l0x[1] <= (stop_distance_climb_2 + 10) && vl53l0x_is_ok){
-            vl53_vel.linear.y = -constvel;
-            vl53l0x_vel_pub.publish(vl53_vel);
-            rate.sleep();
-        }else{
-            vl53_vel.linear.y = 0;
-            for(int i=0;i<100;i++){
-                vl53l0x_vel_pub.publish(vl53_vel);
-                rate.sleep();
-            }
-            break;
-        }
-    }
+    // while(ros::ok()){ //向右
+    //     std::cout<<"111\n";
+    //     ros::spinOnce();
+    //     if(vl53l0x[0] <= (stop_distance_climb_2 + 10) && vl53l0x[1] <= (stop_distance_climb_2 + 10) && vl53l0x_is_ok){
+    //         vl53_vel.linear.y = -constvel;
+    //         vl53l0x_vel_pub.publish(vl53_vel);
+    //         rate.sleep();
+    //     }else{
+    //         vl53_vel.linear.y = 0;
+    //         for(int i=0;i<100;i++){
+    //             vl53l0x_vel_pub.publish(vl53_vel);
+    //             rate.sleep();
+    //         }
+    //         break;
+    //     }
+    // }
 
     // while(ros::ok()){ //向前
     //     ros::spinOnce();
