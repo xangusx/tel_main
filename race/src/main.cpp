@@ -3,7 +3,6 @@
 #include "third.h"
 #include "odom_init.h"
 
-
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "strategy");
@@ -16,10 +15,10 @@ int main(int argc, char **argv)
         // odom_init(30,0,0);
         if(reset_state == 1||reset_state == 0)
         {
-            first_move(60);
-            first();
+            // first_move(60);
+            // first();
             // second();
-            // third();
+            third();
             break;
         }
         else if (reset_state == 2)
