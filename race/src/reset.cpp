@@ -19,6 +19,7 @@ int main(int argc, char **argv)
         if(reset_state!=0)
         {
             system("rosnode kill /strategy"); 
+            system("rosnode kill /wheel_odom");
         }
         rate.sleep();
     }

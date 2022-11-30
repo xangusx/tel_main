@@ -15,7 +15,7 @@
 ros::Publisher imu_angular_pub;
 ros::Subscriber imu_sub;
 sensor_msgs::Imu imu_raw;
-int freq = 100;
+int freq = 20;
 void imu_callback(const sensor_msgs::Imu::ConstPtr& imu_data);
 void accel_callback(const std_msgs::Int64::ConstPtr& accel);
 void bias_callback(const geometry_msgs::Point::ConstPtr& bias);

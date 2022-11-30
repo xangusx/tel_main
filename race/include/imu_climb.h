@@ -19,14 +19,14 @@ geometry_msgs::Point angle;
 geometry_msgs::Point angle_1;
 geometry_msgs::Twist imu_vel;
 
-float accel_p_c = 0.005;
-float accel_n_c = 0.01;
+float accel_p_c = 0.2;
+float accel_n_c = 0.2;
 float accel_spin;
-float Maxvel_climb = 1.6;
+float Maxvel_climb = 2;
 float Maxvel_spin;
 float Minvel_spin;
 float imu_yaw_init;
-float spin_allow = 0.1;
+float spin_allow = 1;
 float angle_diff;
 float plane_angle = 0;
 

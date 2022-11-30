@@ -113,7 +113,7 @@ void encoder_callback(const geometry_msgs::Twist::ConstPtr& vel_data)
     // vy = vel_data->linear.y*rpstocms*py;
     vx = vel_data->linear.x*rpstocms;
     vy = vel_data->linear.y*rpstocms;
-    vw = vel_data->angular.z*180/PI;
+    vw = vel_data->angular.z*90/PI;
 }
 
 bool init_odom(race::odom_init_srv::Request &req,race::odom_init_srv::Response &res)

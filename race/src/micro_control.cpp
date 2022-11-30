@@ -5,7 +5,11 @@ void micro_move(float x,float y,float w,float vel_x,float vel_y)
     ros::NodeHandle nh;
     micro_sub = nh.subscribe("switch_inform", 1, micro_callback);
     ros::Rate rate(10);
-    
+    for(int i=0;i<4;i++)
+        micro_state[i] = 0;
+    left_state = false;
+    front_state = false;
+
     while(ros::ok())
     {
         ros::spinOnce();
@@ -48,4 +52,36 @@ void micro_callback(const std_msgs::Int32MultiArray::ConstPtr& micro_data)
     micro_state[2] = micro_data->data[2];
     micro_state[3] = micro_data->data[3];
 
+}
+
+void micro_control_level_3(){
+
+    ros::NodeHandle nh;
+    micro_sub = nh.subscribe("switch_inform", 1, micro_callback);
+    micro_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel",1);
+    ros::Rate rate(10);
+    
+    for(int i=0;i<4;i++)
+        micro_state[i] = 0;
+    
+    left_state = false;
+    front_state = false;
+
+    while(ros::ok()){ //上坡微動校正
+        std::cout<<"micro_stop\n";
+        ros::spinOnce();
+        if(micro_state[0]==0 || micro_state[1]==0){
+            micro_vel.linear.x = constvel_1;
+            micro_pub.publish(micro_vel);
+            rate.sleep();
+        }else{
+            micro_vel.linear.x = 0;
+            for(int i=0;i<50;i++){
+                micro_pub.publish(micro_vel);
+                std::cout << "vel = 0\n";
+                rate.sleep();
+            }
+            break;
+        }
+    }
 }
