@@ -156,11 +156,34 @@ bool Scara_move(float x,float y,float state,bool first_state)
     //first connect
     if(first_state&&ros::ok())
     {
-        for(int i=0;i<(3.2*r);i++)
+        // for(int i=0;i<(3*r);i++)
+        // {
+        //     std::cout<<i<<"\n";
+        //     scara_pub.publish(point);
+        //     std::cout<<"Scara init\n";
+        //     rate.sleep();
+        // }
+        while(ros::ok())
         {
-            std::cout<<i<<"\n";
             scara_pub.publish(point);
+            std::cout<<"Scara init\n";
+            ros::spinOnce();
+            if(feedback==0){
+                break;
+            }
             rate.sleep();
+        }
+        while(ros::ok())
+        {
+            std::cout<<"doing init\n";
+            scara_pub.publish(point);
+            ros::spinOnce();                                                                                                                                                                                              
+            if(feedback==1)
+            {
+                std::cout<<"scara init over\n";
+                break;
+            } 
+            rate.sleep();    
         }
         first_state = false;
         scara_first_state = false;

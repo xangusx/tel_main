@@ -178,10 +178,6 @@ add_library(scara src/scara.cpp)
 target_link_libraries(scara opencv ${catkin_LIBRARIES})
 add_dependencies(scara ${catkin_EXPORTED_TARGETS})
 
-# add_library(detect_square src/detect_square.cpp)
-# target_link_libraries(detect_square opencv ${catkin_LIBRARIES})
-# add_dependencies(detect_square ${catkin_EXPORTED_TARGETS})
-
 add_library(chassis_control src/chassis_control.cpp)
 target_link_libraries(chassis_control ${catkin_LIBRARIES})
 add_dependencies(chassis_control ${catkin_EXPORTED_TARGETS})
@@ -213,6 +209,12 @@ add_dependencies(vl53l0x_3 ${catkin_EXPORTED_TARGETS})
 add_library(move_3 src/move_3.cpp)
 target_link_libraries(move_3 ${catkin_LIBRARIES})
 add_dependencies(move_3 ${catkin_EXPORTED_TARGETS})
+
+# ---
+
+# add_library(detect_square src/detect_square.cpp)
+# target_link_libraries(detect_square opencv ${catkin_LIBRARIES})
+# add_dependencies(detect_square ${catkin_EXPORTED_TARGETS})
 
 # add_executable(color_cover src/color_cover.cpp)
 # target_link_libraries(color_cover ${catkin_LIBRARIES})

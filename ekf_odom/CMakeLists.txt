@@ -162,9 +162,6 @@ add_executable(wheel_odom src/wheel_odom.cpp)
 target_link_libraries(wheel_odom odom_init ${catkin_LIBRARIES})
 add_dependencies(wheel_odom ${catkin_EXPORTED_TARGETS})
 
-# add_executable(imu src/imu.cpp)
-# target_link_libraries(imu ${catkin_LIBRARIES})
-# add_dependencies(imu ${catkin_EXPORTED_TARGETS})
 
 #############
 ## Install ##
