@@ -11,7 +11,7 @@ int ScaraTake(int which)
     {
         open_camera(); 
         std::cout<<"open over\n";
-        next_state = 1;
+        // next_state = 1;
         for(int i=0;i<3;i++)
         {
             target = coords_array(i,0);

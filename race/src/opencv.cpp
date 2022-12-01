@@ -286,7 +286,7 @@ void getContours(Mat &imgDil, Mat &img, int& temp){
 
 int  open_camera() {
 	VideoCapture cap(0);
-
+ //int j = 0;
 	if (!cap.isOpened()) {
 		cout << "Camera not found" << endl;
 		return 1;
@@ -330,48 +330,48 @@ int  open_camera() {
 		getContours(imgDil, img, temp);
 		
 		counter++;
-		double temp[20][20][3] = {0};
-		 int j = 0;
+		//double temp[20][20][3] = {0};
+		
 		waitKey(1);
-		if (counter >=20&&counter<35) {
+		// if (counter >=20&&counter<35) {
 	
-			for (int i=0;i<3;i++)
-			{
-				if (square_coord[i][0] != 0 && square_coord[i][1] != 0) {
-					temp[j][0][i] = square_coord[i][0];
-					temp[j][1][i] = square_coord[i][1];
-					j++;
-			}
+		// 	for (int i=0;i<3;i++)
+		// 	{
+		// 		if (square_coord[i][0] != 0 && square_coord[i][1] != 0) {
+		// 			temp[j][0][i] = square_coord[i][0];
+		// 			temp[j][1][i] = square_coord[i][1];
+					
+		// 	}
 				
-			}
-			
-		}
+		// 	}
+		// 	j++;
+		// }
 		if (counter == 35) {
-			j = 0;
-			int k[20] = { 0 }, c=0;
-			int minustemp = 0, temp1[15] = { 0 };
+			// j = 0;
+			// int k[20] = { 0 }, c=0;
+			// int minustemp = 0, temp1[15] = { 0 };
 
 
-			double final[3][2] = { 0 };
-			for (int z = 0; z < 3; z++) {
-				for (int i = 0; i < 15; i++) {
-					for (int g = i + 1; g < 15; g++) {
-						if (fabs(temp[i][0][z] - temp[g][0][z]) < 0.5) minustemp++;
-					}
-					temp1[i] = minustemp;
-					minustemp = 0;
-				}
-				for (int h = 1; h < 15; h++) {
-					if (temp1[h] >= temp1[h - 1])c = h;
-				}
-				final[z][0] = temp[c][0][z];
-				final[z][1] = temp[c][1][z];
-			}
+			// double final[3][2] = { 0 };
+			// for (int z = 0; z < 3; z++) {
+			// 	for (int i = 0; i < 15; i++) {
+			// 		for (int g = i + 1; g < 15; g++) {
+			// 			if (fabs(temp[i][0][z] - temp[g][0][z]) < 0.5) minustemp++;
+			// 		}
+			// 		temp1[i] = minustemp;
+			// 		minustemp = 0;
+			// 	}
+			// 	for (int h = 1; h < 15; h++) {
+			// 		if (temp1[h] >= temp1[h - 1])c = h;
+			// 	}
+			// 	final[z][0] = temp[c][0][z];
+			// 	final[z][1] = temp[c][1][z];
+			// }
 
 			for(int i=0;i<3;i++)
 			{
-				square_coord[i][0] = final[i][0];
-				square_coord[i][1] = final[i][1];
+				// square_coord[i][0] = final[i][0];
+				// square_coord[i][1] = final[i][1];
 				printf("%lf %lf\n", square_coord[i][0], square_coord[i][1]);
 			}
 			break;
@@ -379,8 +379,8 @@ int  open_camera() {
 	}
 	//string path = "Resources/shape.jpg";
 	//Mat img = imread(path);
-	// Mat imgResize;
-	// resize(img, imgResize, Size(), 0.5, 0.5);
+	 Mat imgResize;
+	 resize(img, imgResize, Size(), 0.5, 0.5);
 	//Mat imgGray, imgBlur, imgCanny, imgDil, imgErode;
 	// Preprocessing
 	//cvtColor(img, imgGray, COLOR_BGR2GRAY);

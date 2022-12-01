@@ -1,6 +1,6 @@
 <launch>
     <include file="$(find rosserial_server)/launch/serial_stm.launch"/>
-    <node pkg="rosserial_python" type=""
+    <node pkg="rosserial_python" type="serial_node.py" name="serial_node" output="screen"/>
 
     <!-- <include file="$(find imu_usage)/launch/imu_vel_integral.launch"/> -->
     <!-- <include file="$(find VL53L0X_rasp_python)/launch/vl53l0x.launch"/> -->

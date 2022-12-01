@@ -4,7 +4,7 @@ void first()
 {
     // first stage param
     float ScaraFinal_X,ScaraFinal_Y;
-    ScaraFinal_X = 20.;
+    ScaraFinal_X = 24.;
     ScaraFinal_Y = 10.;
     float back_dis = 15.;
 
@@ -107,6 +107,7 @@ void first()
                 steps = ScaraTake(steps);
                 //across back to put off
                 std::cout<<"across back to put off\n";
+                MoveTo(200,24,1,0.06);
                 rotation(2,0.022,0.001);
                 odom_init(-1,-1,0);
                 MoveTo(280,24,1,0.06);
@@ -146,6 +147,7 @@ void first()
             steps = ScaraTake(steps);
             // across back to put off
             std::cout<<"across back to put off\n";
+            MoveTo(200,24,1,0.06);
             rotation(2,0.022,0.001);
             odom_init(-1,-1,0);
             MoveTo(280,24,1,0.06);
