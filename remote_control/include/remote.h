@@ -19,7 +19,7 @@ geometry_msgs::Point scara_msg;
 geometry_msgs::Point pump_msg;
 geometry_msgs::Point other_msg;
 
-float max_vel = 0.45;
+float max_vel = 0.35;
 float turn_vel = 0.01;
 
 void car_vel_callback(const geometry_msgs::Twist::ConstPtr& vel_data);

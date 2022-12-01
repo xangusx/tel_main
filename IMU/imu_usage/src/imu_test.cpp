@@ -45,8 +45,8 @@ int main(int argc, char **argv)
                 // offset_x = ov.x;
                 // offset_y = ov.y;
                 // offset_z = ov.z;
-                std::cout<<"000 "<<"\n";
-                std::cout<<offset_z<<"\n";
+                // std::cout<<"000 "<<"\n";
+                // std::cout<<offset_z<<"\n";
 
             }
         }

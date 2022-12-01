@@ -3,123 +3,127 @@
 int ScaraTake(int which)
 {
     float x=0.0,y=0.0;
+    float back_distance = 15.;
     int t;
     coord target;
 // ----------------------------------------------
-    // if(which == 0)
-    // {
-    //     open_camera(); 
-    //     std::cout<<"open over\n";
-
-    //     for(int i=0;i<3;i++)
-    //     {
-    //         x, y = coords_array(i,0);
-    //         if(x==0&&y==0){
-    //             std::cout<<i<<" is (0,0)\n";
-    //             continue;
-    //         }
-    //         else{
-    //             t = check_boundary(x,y);
-    //             if(t==0){
-    //                 scara_first_state = Scara_move(x,y,i+1,scara_first_state);
-    //                 x, y = coords_array(i,1);
-    //                 NumberOfSquare--;
-    //                 if(NumberOfSquare==0){
-    //                     next_state = 0;
-    //                     return next_state;
-    //                     // put off
-    //                 }
-    //             }
-    //             else if(next_state<t){
-    //                 next_state=t;
-    //             }
-    //         }
-    //     }
-    // }
-
-    // else if(which == 2)
-    // {
-    //     for(int i=0;i<3;i++){
-    //         x, y = coords_array(i,0);
-    //         if(x==0&&y==0){
-    //             std::cout<<i<<" is (0,0)\n";
-    //             continue;
-    //         }
-    //         t = check_boundary(x,y+back_distance);
-    //         if(t==0){
-    //             scara_first_state = Scara_move(x,y,3-NumberOfSquare+1,scara_first_state);
-    //             x, y = coords_array(i,1);
-    //             NumberOfSquare--;
-    //             if(NumberOfSquare==0){
-    //                 next_state = 0;
-    //                 return next_state;
-    //                 // put off
-    //             } 
-    //         }
-    //         else{
-    //             next_state = 1;
-    //         }
-    //     }
-        
-    // }
-
-    // else if(which==1)
-    // {
-    //     open_camera(); 
-    //     std::cout<<"open over\n";
-    //     for(int i=0;i<3;i++)
-    //     {
-    //         x, y = coords_array(i,0);
-    //         if(x==0&&y==0){
-    //             std::cout<<i<<" is (0,0)\n";
-    //             continue;
-    //         }
-    //         else{
-    //             t = check_boundary(x,y);
-    //             if(t==0){
-    //                 scara_first_state = Scara_move(x,y,i+1,scara_first_state);
-    //                 x, y = coords_array(i,1);
-    //                 NumberOfSquare--;
-    //                 if(NumberOfSquare==0){
-    //                     next_state = 0;
-    //                     return next_state;
-    //                     // put off
-    //                 }
-    //             }
-    //             else{
-    //                 next_state=2;
-    //             }
-    //         }
-    //     }
-    // }
-    // return next_state;
-    // ----------------------------
-
-    if(which==0)
+    if(which == 0)
     {
-        while(open_camera()){
-            std::cout<<"restart of open camera\n";
-        } 
+        open_camera(); 
+        std::cout<<"open over\n";
+        next_state = 1;
+        for(int i=0;i<3;i++)
+        {
+            target = coords_array(i,0);
+            // pass the void coord_array
+            if(target.x==0&&target.y==0){
+                std::cout<<i<<" is (0,0)\n";
+                continue;
+            }
+            else{
+                t = check_boundary(target.x,target.y);
+                if(t==0){
+                    scara_first_state = Scara_move(target.x,target.y,4-NumberOfSquare,scara_first_state);
+                    target = coords_array(i,1);//clean the coord_array
+                    NumberOfSquare--;
+                    std::cout<<"NumberofSquare = "<<NumberOfSquare<<"\n";
+                    if(NumberOfSquare==0){
+                        next_state = 0;
+                        std::cout<<"NumberofSquare = 0\n";
+                        return next_state;
+                        // put off
+                    }
+                }
+                else if(next_state<t){
+                    next_state=t;
+                }
+            }
+        }
+    }
+
+    else if(which == 2)//back
+    {
+        for(int i=0;i<3;i++){
+            target = coords_array(i,0);
+            if(target.x==0&&target.y==0){
+                std::cout<<i<<" is (0,0)\n";
+                continue;
+            }
+            t = check_boundary(target.x,target.y+back_distance);
+            if(t==0){
+                scara_first_state = Scara_move(target.x,target.y+back_distance,4-NumberOfSquare,scara_first_state);
+                target = coords_array(i,1);
+                NumberOfSquare--;
+                if(NumberOfSquare==0){
+                    next_state = 0;
+                    return next_state;
+                    // put off
+                } 
+            }
+            else{
+                next_state = 1;
+            }
+        }
+        
+    }
+
+    else if(which==1)//across
+    {
+        open_camera(); 
         std::cout<<"open over\n";
         for(int i=0;i<3;i++)
         {
             target = coords_array(i,0);
-            std::cout<<"x,y = "<<target.x<<", "<<target.y<<"\n";
-            t = check_boundary(target.x,target.y);
-            std::cout<<"position:"<<t<<"\n";
-            if(t==0)
-            {
-                scara_first_state = Scara_move(target.x,target.y,i+1,scara_first_state);
-                std::cout<<"scara move ("<<target.x<<", "<<target.y<<")\n";
+            if(target.x==0&&target.y==0){
+                std::cout<<i<<" is (0,0)\n";
+                continue;
             }
-            if(next_state<t)
-            {
-                next_state = t;
+            else{
+                t = check_boundary(target.x,target.y);
+                if(t==0){
+                    scara_first_state = Scara_move(target.x,target.y,4-NumberOfSquare,scara_first_state);
+                    target = coords_array(i,1);
+                    NumberOfSquare--;
+                    if(NumberOfSquare==0){
+                        next_state = 0;
+                        return next_state;
+                        // put off
+                    }
+                }
+                else{
+                    next_state=2;
+                }
             }
-            
         }
-        return next_state;
-    }     
+    }
+    return next_state;
+    // ----------------------------
+
+    // if(which==0)
+    // {
+    //     while(open_camera()){
+    //         std::cout<<"restart of open camera\n";
+    //     } 
+    //     std::cout<<"open over\n";
+    //     for(int i=0;i<3;i++)
+    //     {
+    //         target = coords_array(i,0);
+    //         std::cout<<"x,y = "<<target.x<<", "<<target.y<<"\n";
+    //         t = check_boundary(target.x,target.y);
+    //         std::cout<<"position:"<<t<<"\n";
+    //         if(t==0)
+    //         {
+    //             scara_first_state = Scara_move(target.x,target.y,i+1,scara_first_state);
+    //             std::cout<<"scara move ("<<target.x<<", "<<target.y<<")\n";
+    //         }
+    //         if(next_state<t)
+    //         {
+    //             next_state = t;
+    //         }
+            
+    //     }
+    //     return next_state;
+    // }     
 }
 
 int check_boundary(float x,float y)

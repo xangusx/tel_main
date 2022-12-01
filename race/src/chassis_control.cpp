@@ -135,13 +135,13 @@ void go(float target_x,float target_y,float middle_point,float max_vel,float acc
             delta_x,delta_y = check_distance(target_x,target_y,position_x,position_y);
             dir_x = (delta_x*cos(position_w)+delta_y*sin(position_w));
             dir_y = (delta_y*cos(position_w)-delta_x*sin(position_w));
-            std::cout<<"trans_x = "<<dir_x<<" trans_y = "<<dir_y<<"\n";
+            // std::cout<<"trans_x = "<<dir_x<<" trans_y = "<<dir_y<<"\n";
             delta_distance = len(dir_x,dir_y);
             dir_x = dir_x/delta_distance;
             dir_y = dir_y/delta_distance;
             
-            std::cout<<delta_x<<" "<<delta_y<<"\n";
-            std::cout<<dir_x<<" "<<dir_y<<"\n";
+            // std::cout<<delta_x<<" "<<delta_y<<"\n";
+            // std::cout<<dir_x<<" "<<dir_y<<"\n";
             accel_x = dir_x*acceleration;
             accel_y = dir_y*acceleration;
             vel_msg.linear.x += accel_x;
@@ -176,9 +176,9 @@ void go(float target_x,float target_y,float middle_point,float max_vel,float acc
             vel_msg.linear.y = max_vel*dir_y;
             vel_pub.publish(vel_msg);      
             
-            std::cout<<"distance = "<<delta_distance<<"\n";
-            std::cout<<position_x<<" "<<position_y<<"\n";
-            std::cout<<dir_x<<" "<<dir_y<<"\n";
+            // std::cout<<"distance = "<<delta_distance<<"\n";
+            // std::cout<<position_x<<" "<<position_y<<"\n";
+            // std::cout<<dir_x<<" "<<dir_y<<"\n";
             
             if(delta_distance<=stop_point)
             {
@@ -211,9 +211,9 @@ void go(float target_x,float target_y,float middle_point,float max_vel,float acc
             // vel_msg.linear.y -= accel_y;
             
             now_vel = len(vel_msg.linear.x,vel_msg.linear.y);
-            std::cout<<"now_vel = "<<now_vel<<" \n";
-            std::cout<<dir_x<<" "<<dir_y<<"\n";
-            std::cout<<"distance = "<<delta_distance<<"\n";
+            // std::cout<<"now_vel = "<<now_vel<<" \n";
+            // std::cout<<dir_x<<" "<<dir_y<<"\n";
+            // std::cout<<"distance = "<<delta_distance<<"\n";
 
             if(now_vel<=min_vel)
             {
@@ -272,9 +272,9 @@ void turn(float target_w,float middle_w,float max_angular_vel,float angular_acce
 
     while(abs(delta_rotation)>abs(middle_w)&&temp==0&&ros::ok())
     {
-        std::cout<<"rotation_accel\n";
+        // std::cout<<"rotation_accel\n";
         vel_msg.angular.z += dir_w*angular_accel;
-        std::cout<<"dir_w = "<<dir_w<<"\n";
+        // std::cout<<"dir_w = "<<dir_w<<"\n";
         if(abs(vel_msg.angular.z)>=max_angular_vel)
         {
             std::cout<<"\nrotation_maxvel\n";
@@ -289,9 +289,9 @@ void turn(float target_w,float middle_w,float max_angular_vel,float angular_acce
     }
     while(temp==1&&ros::ok())
     {
-        std::cout<<"\nrotation_keep_maxvel\n";
-        std::cout<<"omega: "<<position_w*180/PI<<"\n";
-        std::cout<<"delta_rotation: "<<delta_rotation<<"\n";
+        // std::cout<<"\nrotation_keep_maxvel\n";
+        // std::cout<<"omega: "<<position_w*180/PI<<"\n";
+        // std::cout<<"delta_rotation: "<<delta_rotation<<"\n";
         ros::spinOnce();
         delta_rotation = target_w-position_w*180/PI; 
         if(abs(delta_rotation) <= stop_angular)
@@ -302,7 +302,7 @@ void turn(float target_w,float middle_w,float max_angular_vel,float angular_acce
     temp = 0;
     while(abs(delta_rotation)>5&&ros::ok()&&temp==0)
     {
-        std::cout<<"\nrotation_reduce_vel\n";
+        // std::cout<<"\nrotation_reduce_vel\n";
         vel_msg.angular.z -= dir_w*angular_accel;
         ros::spinOnce();
         delta_rotation = target_w-position_w*180/PI;
@@ -314,7 +314,7 @@ void turn(float target_w,float middle_w,float max_angular_vel,float angular_acce
 
     while(abs(delta_rotation)>stop_angle&&ros::ok())
     {
-        std::cout<<"rotation_minvel\n";
+        // std::cout<<"rotation_minvel\n";
         ros::spinOnce();
         vel_msg.angular.z = dir_w*min_angular_vel;
         delta_rotation = target_w-position_w*180/PI;
@@ -351,13 +351,13 @@ void go_turn(float target_x,float target_y,float target_w,float middle_point,flo
             delta_x,delta_y = check_distance(target_x,target_y,position_x,position_y);
             dir_x = (delta_x*cos(position_w)+delta_y*sin(position_w));
             dir_y = (delta_y*cos(position_w)-delta_x*sin(position_w));
-            std::cout<<"trans_x = "<<dir_x<<" trans_y = "<<dir_y<<"\n";
+            // std::cout<<"trans_x = "<<dir_x<<" trans_y = "<<dir_y<<"\n";
             delta_distance = len(dir_x,dir_y);
             dir_x = dir_x/delta_distance;
             dir_y = dir_y/delta_distance;
             
-            std::cout<<delta_x<<" "<<delta_y<<"\n";
-            std::cout<<dir_x<<" "<<dir_y<<"\n";
+            // std::cout<<delta_x<<" "<<delta_y<<"\n";
+            // std::cout<<dir_x<<" "<<dir_y<<"\n";
             accel_x = dir_x*acceleration;
             accel_y = dir_y*acceleration;
             vel_msg.linear.x += accel_x;
@@ -396,9 +396,9 @@ void go_turn(float target_x,float target_y,float target_w,float middle_point,flo
             vel_msg.angular.z = check_turn(target_w,position_w);
             vel_pub.publish(vel_msg);      
             
-            std::cout<<"distance = "<<delta_distance<<"\n";
-            std::cout<<position_x<<" "<<position_y<<"\n";
-            std::cout<<dir_x<<" "<<dir_y<<"\n";
+            // std::cout<<"distance = "<<delta_distance<<"\n";
+            // std::cout<<position_x<<" "<<position_y<<"\n";
+            // std::cout<<dir_x<<" "<<dir_y<<"\n";
             
             if(delta_distance<=stop_point)
             {

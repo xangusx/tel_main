@@ -1,5 +1,12 @@
 <launch>
+    <include file="$(find rosserial_server)/launch/serial_stm.launch"/>
+    <node pkg="rosserial_python" type=""
+
+    <!-- <include file="$(find imu_usage)/launch/imu_vel_integral.launch"/> -->
+    <!-- <include file="$(find VL53L0X_rasp_python)/launch/vl53l0x.launch"/> -->
     <node name= "reset_node" pkg="race" type="reset" output="screen" respawn="true"/>
     <node name= "strategy" pkg="race" type="main" output="screen" respawn="true" />
     <node pkg="ekf_odom" type="wheel_odom" name="wheel_odom" output="screen" respawn="true" />
+    <!-- <node name= "imu_integral" pkg="imu_usage" type="imu_integral" required="true"/> -->
+
 </launch>

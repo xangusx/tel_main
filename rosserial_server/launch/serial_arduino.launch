@@ -1,0 +1,14 @@
+<launch>
+  <node pkg="rosserial_server" type="serial_node" name="rosserial_server_arduino" output="screen" respawn="true" respawn_delay="3">
+    <param name="port" value="/dev/ttyACM0" />
+    <param name="baud" value="57600" />
+
+    <rosparam>
+      require:
+        publishers: [/car_arduino_to_ros, /scara_arduino_to_ros, /pump_arduino_to_ros, /other_arduino_to_ros]
+        subscribers: []
+    </rosparam>
+  </node>
+
+</launch>
+<!-- cmd_vel scara_move cmd_pump cmd_other -->

@@ -27,11 +27,11 @@ float position_x,position_y,position_w;
 float imu_w,delta_rotation;
 float delta_x,delta_y,delta_distance;
 float middle_point;
-float stop_point = 10;//離目標點多遠時開始減速
+float stop_point = 15;//離目標點多遠時開始減速
 float stop_circle = 4;
 float stop_angular = 12;
 float stop_angle = 2;
-float min_vel = 0.2;
+float min_vel = 0.25;
 float min_angular_vel = 0.002;
 float rotation_angle = 2;//check_turn
 float rotation_vel = 0.002;//check_turn

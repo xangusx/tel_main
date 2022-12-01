@@ -12,7 +12,7 @@ int NumberOfSquare = 3;
 int feedback = 0;
 bool scara_first_state = true;
 int next_state = 0;
-float back_distance = 15;
+
 
 // typedef struct {
 // 	double x;

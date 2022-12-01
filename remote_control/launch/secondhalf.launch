@@ -1,0 +1,5 @@
+<launch>
+    <node name= "remote" pkg="remote_control" type="remote" output="screen" respawn="true"/>
+    <node name= "serial_node_STM" pkg="rosserial_python" type="serial_node.py" output="screen" respawn="true" />
+    <node name= "serial_node_ARDUINO" pkg="rosserial_python" type="serial_node_1.py" output="screen" respawn="true" />
+</launch>

@@ -1,0 +1,13 @@
+<launch>
+  <node pkg="rosserial_server" type="serial_node" name="rosserial_server_stm" output="screen" respawn="true" respawn_delay="3">
+    <param name="port" value="/dev/ttyUSB0" />
+    <param name="baud" value="57600" />
+
+    <rosparam>
+      require:
+        publishers: [encoder_data, scara_feedback, switch_inform]
+        subscribers: [cmd_vel, Destination]
+    </rosparam>
+  </node>
+
+</launch>

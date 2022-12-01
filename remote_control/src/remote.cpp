@@ -4,7 +4,7 @@ int main(int argc, char **argv)
 {
     ros::init(argc, argv, "remote");
     ros::NodeHandle nh;
-    ros::Rate rate(10);
+    ros::Rate rate(50);
 
     car_sub= nh.subscribe("car_arduino_to_ros", 1, car_vel_callback);
     car_pub = nh.advertise<geometry_msgs::Twist>("cmd_vel",1);

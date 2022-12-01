@@ -4,8 +4,8 @@ void first()
 {
     // first stage param
     float ScaraFinal_X,ScaraFinal_Y;
-    ScaraFinal_X = 29.;
-    ScaraFinal_Y = 0.;
+    ScaraFinal_X = 20.;
+    ScaraFinal_Y = 10.;
     float back_dis = 15.;
 
     // -------------------------
@@ -40,7 +40,7 @@ void first()
     // -----------------------------------first stage completely
     MoveTo(50,0,1,0.06);
     MoveTo(50,30,1,0.06); 
-    MoveTo(96,30,1,0.06);
+    MoveTo(96,30,1,0.05);
 
     first_state = Scara_move(0,0,0,first_state);
     first_state = Scara_move(0,29,5,first_state);
@@ -85,6 +85,7 @@ void first()
             MoveTo(180,20,0.6,0.04);
             rotation(166,0.022,0.001);
             MoveTo(170,34,0.6,0.02);
+            first_state = Scara_move(0,29,5,first_state);
             steps = ScaraTake(steps);
             if(steps==0)
             {   //across to put off
@@ -124,6 +125,7 @@ void first()
         MoveTo(180,20,0.6,0.04);
         rotation(166,0.022,0.001);
         MoveTo(170,34,0.6,0.02);
+        first_state = Scara_move(0,29,5,first_state);
         steps = ScaraTake(steps);
         if(steps==0){
             // across to put off
@@ -153,8 +155,9 @@ void first()
             first_state = Scara_move(ScaraFinal_X,ScaraFinal_Y,4,first_state);
         }
     }
+    first_state = Scara_move(0,0,0,first_state);
     MoveTo(345,20,1,0.06);
-    MoveTo(345,1,1,0.6);
+    MoveTo(345,1,1,0.3);
     odom_init(0,0,0);
 
     // ------------------------------------
